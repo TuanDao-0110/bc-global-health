@@ -1,70 +1,72 @@
-# Getting Started with Create React App
+Back-end
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. Register.
+    1. Admin (must be created by other Admin)
+    2. User. (Must be confirm later by admin)
+    3. Hospital (must have correct ID from Finnish)
+2. Login
+    1. POST:By password vs username
+        1. Get 1 day valid TOKEN
+3. Hospital information 
+    1. GET : Name, location, campus, 
+    2. GET: Time booking table for each campus
+        1. Only user can book
+        2. Book only accept by hospital
+    3. POST: Confirm request booking from user
+4. User information 
+    1. GET : Name, age, address….
+    2. POST : Booking history
+    3. PATCH :Booking 
+    4. PATCH: edit information
+5. Admin information 
+    1. Confirm request from (user register)
+    2. Delete user/hospital 
 
-## Available Scripts
 
-In the project directory, you can run:
+FRONT -END 
 
-### `npm start`
+1. Main page: 
+    1. Introduction
+        1. Intro (service, customer review…,)
+        2. 
+    2. hospital page
+        1. Hospital cards (name , description)
+            1. Campus (name, location, …)
+                1. Booking time
+                2. Service types 
+    3. Shopping store:
+        1. Selling medical stuff 
+            1. List item
+                1. Click item pop-up show 
+            2. Buy item —> need user to buy it
+    4. Blog/new
+        1. Hospital post new information, 
+            1. Hospital post
+            2. Medical post
+            3. Website post
+        2. Like/comment -> need to be user to action
+    5. User/hospital’s information  (need to login to show in navbar)
+        1. Request confirmed for user page
+        2. Request need to be confirm for hospital
+    6. Login page 
+        1. User 
+            1. User page 
+                1. User information
+        2. hospital
+            1. Hospital page
+                1. Hospital information
+        3. Admin 
+            1. New user confirmed 
+            2. Create new admin
+            3. Admin information
+    7. Register 
+        1. User 
+        2. Hospital
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Technology:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Front end : REACT vs Tailwind CSS vs CSS Module vs MUI 
+2. Back-end :Express JS 
+3. UI/UX: Figma
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

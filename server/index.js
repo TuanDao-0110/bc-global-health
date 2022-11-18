@@ -16,16 +16,16 @@ app.use('/', require('./routes/data'))
 
 
 app.all('*', (req, res) => {
-  res.status(404).send('not found')
+    res.status(404).send('not found')
 
 })
 app.use(defaultHanlder)
 mongoose.connection.once('open', () => {
-  console.log('connect db')
-  app.listen(PORT, () => {
-    console.log(`listening on ${PORT} ...`)
-  })
+    console.log('connect db')
+    app.listen(PORT, () => {
+        console.log(`listening on ${PORT} ...`)
+    })
 })
 mongoose.connection.on('error', err => {
-  console.log(err)
+    console.log(err)
 })
