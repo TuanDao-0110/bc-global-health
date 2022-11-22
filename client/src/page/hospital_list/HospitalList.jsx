@@ -1,32 +1,45 @@
 /* eslint-disable jsx-a11y/iframe-has-title */
 import AddLocationIcon from "@mui/icons-material/AddLocation";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ModalHospitalInfor from "../../component/modal/ModalHospitalInfor";
 import { open_modal } from "../../redux/reducer/modalReducer";
+import getAlldata from "../../service/hospitalData";
 
 export default function HospitalList() {
   const hospitalList = useSelector((state) => state.hospitalReducer.hospitals);
-
-  const [hospitals, setHospitalList] = useState(hospitalList);
+  // const [hospitals, setHospitalList] = useState(hospitalList);
+  const [load, setMoreLoad] = useState(5);
   const dispatch = useDispatch();
-
-  const searchHostpital = (e) => {
-    if (e.target.value) {
-      const list = hospitals.filter((hospital) => hospital.hospitalName.toLowerCase().includes(e.target.value.toLowerCase()));
-      setHospitalList(() => {
-        return list;
-      });
-    } else {
-      setHospitalList(hospitalList);
-    }
+  const setMore = (state, setState) => {
+    setState(state + 2);
   };
+  // call api and set up to store
+  useEffect(() => {
+    console.log("dispatch");
+    // eslint-disable-next-line no-unused-expressions
+    getAlldata(dispatch);
+    // setHospitalList(hospitalList);
+  },[]);
+  // search hospital by name
+  // const searchHostpital = (e) => {
+  //   if (e.target.value) {
+  //     const list = hospitals.filter((hospital) => hospital.hospitalName.toLowerCase().includes(e.target.value.toLowerCase()));
+  //     setHospitalList(() => {
+  //       return list;
+  //     });
+  //   } else {
+  //     setHospitalList(hospitals);
+  //   }
+  // };
+  // search by id to book time table
   const searchById = (id) => {
     if (id) {
-      const list = hospitals.filter((hospital) => hospital.id.toLowerCase().includes(id.toLowerCase()));
+      const list = hospitalList.filter((hospital) => hospital.id.toLowerCase().includes(id.toLowerCase()));
       return list;
     }
   };
+  // {getAlldata(dispatch)}
   return (
     <div className="bg-slate-300 h-screen">
       <ModalHospitalInfor></ModalHospitalInfor>
@@ -40,7 +53,7 @@ export default function HospitalList() {
                   type="text"
                   className="bg-white h-14 w-full px-12 rounded-lg focus:outline-none hover:cursor-pointer"
                   name
-                  onChange={searchHostpital}
+                  // onChange={searchHostpital}
                   placeholder="input hospital name"
                 />
                 <span className="absolute top-4 right-5 border-l pl-4">
@@ -53,7 +66,7 @@ export default function HospitalList() {
       </div>
 
       <div className="space-y-4 pt-5">
-        {hospitals.map((item, index) => {
+        {hospitalList?.slice(0, load).map((item, index) => {
           return (
             <div key={index}>
               <div className="flex flex-col justify-center">
@@ -119,6 +132,16 @@ export default function HospitalList() {
             </div>
           );
         })}
+      </div>
+      <div className="w-full flex justify-center my-10">
+        <button
+          className="bg-slate-300 p-4 text-sm capitalize rounded-md animate-bounce"
+          onClick={() => {
+            setMore(load, setMoreLoad);
+          }}
+        >
+          see more
+        </button>
       </div>
     </div>
   );
