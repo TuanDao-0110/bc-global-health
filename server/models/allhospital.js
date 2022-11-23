@@ -16,5 +16,5 @@ const allHospitalSchema = new mongoose.Schema({
     "service": String
 })
 
-module.exports = mongoose.model('hospital_datas', allHospitalSchema)
+module.exports = mongoose.model('hospital-datas', allHospitalSchema)
 

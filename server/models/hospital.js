@@ -4,6 +4,16 @@ const hospitalSchema = new mongoose.Schema({
     "id": String,
     "orderNum": String,
     "hospitalName": String,
+    "address": String,
+    "postinumero": String,
+    "location": String,
+    "resisdentCode": String,
+    "city": String,
+    "language": String,
+    "organizationId": String,
+    "organizationName": String,
+    "serviceId": String,
+    "service": String,
     "password": {
         type: String,
         required: [true, 'please provide password']
