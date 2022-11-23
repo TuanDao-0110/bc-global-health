@@ -1,7 +1,6 @@
 const hospitaluser = require('../models/hospital')
 
 const asyncHandler = require('express-async-handler')
-const { da } = require('date-fns/locale')
 
 const sendAllHospitalData = asyncHandler(async (req, res, next) => {
     const data = await hospitaluser.find().exec()
