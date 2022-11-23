@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable jsx-a11y/iframe-has-title */
 import AddLocationIcon from "@mui/icons-material/AddLocation";
 import React, { Fragment, useEffect, useState } from "react";
@@ -8,7 +9,7 @@ import getAlldata from "../../service/hospitalData";
 
 export default function HospitalList() {
   const hospitalList = useSelector((state) => state.hospitalReducer.hospitals);
-  // const [hospitals, setHospitalList] = useState(hospitalList);
+  const [hospitals, setHospitalList] = useState(hospitalList);
   const [load, setMoreLoad] = useState(5);
   const dispatch = useDispatch();
   const setMore = (state, setState) => {
@@ -17,21 +18,19 @@ export default function HospitalList() {
   // call api and set up to store
   useEffect(() => {
     console.log("dispatch");
-    // eslint-disable-next-line no-unused-expressions
     getAlldata(dispatch);
-    // setHospitalList(hospitalList);
-  },[]);
+  }, []);
   // search hospital by name
-  // const searchHostpital = (e) => {
-  //   if (e.target.value) {
-  //     const list = hospitals.filter((hospital) => hospital.hospitalName.toLowerCase().includes(e.target.value.toLowerCase()));
-  //     setHospitalList(() => {
-  //       return list;
-  //     });
-  //   } else {
-  //     setHospitalList(hospitals);
-  //   }
-  // };
+  const searchHostpital = (e) => {
+    if (e.target.value) {
+      const list = hospitalList.filter((hospital) => hospital.hospitalName.toLowerCase().includes(e.target.value.toLowerCase()));
+      setHospitalList(() => {
+        return list;
+      });
+    } else {
+      setHospitalList(hospitals);
+    }
+  };
   // search by id to book time table
   const searchById = (id) => {
     if (id) {
@@ -39,7 +38,6 @@ export default function HospitalList() {
       return list;
     }
   };
-  // {getAlldata(dispatch)}
   return (
     <div className="bg-slate-300 h-screen">
       <ModalHospitalInfor></ModalHospitalInfor>
