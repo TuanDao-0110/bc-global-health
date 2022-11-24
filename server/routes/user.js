@@ -1,22 +1,23 @@
 const express = require('express')
 const router = express.Router()
-
+const verifyJWT = require('../middleware/verifyJWT')
+const { userProfile, editProfile } = require('../controller/user')
+router.use(verifyJWT)
 
 router.route('/')
-
     // get profile information
-    .get()
+    .get(userProfile)
     // edit profile 
-    .path()
+    .patch(editProfile)
 
 router.route('/booking')
-    // get booking
-    .get()
-    // create booking 
-    .post()
-    // edit booking
-    .patch()
-    // delete booking
-    .delete()
+// get booking
+// .get()
+// create booking 
+// .post()
+// edit booking
+// .patch()
+// delete booking
+// .delete()
 
-export default router
+module.exports = router

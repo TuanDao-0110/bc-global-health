@@ -19,11 +19,11 @@ app.use(cors())
 app.use('/hospital_data', require('./routes/data'))
 
 // login 
-// app.use('/login',require('./routes/login'))
+app.use('/login', require("./routes/login"))
 // register 
-app.use('/register',require("./routes/register"))
+app.use('/register', require("./routes/register"))
 // user router
-// app.use('/user',require('./routes/user'))
+app.use('/user',require('./routes/user'))
 
 app.all('*', (req, res) => {
   res.status(404).send('not found')
