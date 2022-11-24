@@ -23,26 +23,30 @@ const createListOfTime = () => {
     }
     for (let i = 0; i < 7; i++) {
         list[`${setUpdate(i)}`] = []
-        let time = 650
+        let time = 700
         for (let j = 0; j < 20; j++) {
 
             if (j % 2 === 0) {
                 time += 30
 
             } else {
-                time -= 30
-                time += 100
+                time += 70
+            
             }
             let item = {
                 time,
+                customerId: null,
                 userConfirm: false,
                 hospitalConfirm: false,
                 userVisitConfirm: false,
+                customerNote: '',
+                hospitalNote: '',
             }
             list[`${setUpdate(i)}`]?.push(item)
 
         }
     }
+    console.log(list)
     return list
 
 }
