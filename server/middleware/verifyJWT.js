@@ -17,7 +17,7 @@ const verifyJWT = (req, res, next) => {
             // req.user = decoded.userInfor.username;
             // req.roles = decoded.userInfor.roles;
             req.body.nickname = decoded.nickname
-            // req.body.password = decoded.password
+            req.body.pwdToken = decoded.password
             req.body.role = decoded.role
             next()
         }

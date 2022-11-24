@@ -1,8 +1,6 @@
 const { client, hospital, admin, key } = require("../ultilities/role")
 const user = require('../models/user')
 const asyncHandler = require('express-async-handler')
-const { use } = require("../routes/data")
-const { el } = require("date-fns/locale")
 // 1.get user profile 
 
 const userProfile = asyncHandler(async (req, res, next) => {
@@ -13,13 +11,20 @@ const userProfile = asyncHandler(async (req, res, next) => {
 
 
 const editProfile = asyncHandler(async (req, res, next) => {
-    const { nickname, role, password, email, fullname } = req.body
+    const { nickname, role, password, email, fullname, pwdToken } = req.body
     let data = await user.findOne({ nickname }).exec()
     let message = ''
+    // 1. check that pwdtoken === database token or not 
+    // 1.1 make sure that in case user changed password but he still using all token
+    // 1.2 user have to login and get new token
+    if (pwdToken !== data.password) {
+        message += ' please login again'
+        return res.status(401).json({ msg: message })
+    }
     if (password && password !== data.password) {
         data.password = password
         data = await data.save()
-        message += '--- user password updated'
+        message += '--- user password updated please logout'
     }
     if (email && email !== data.email) {
         let check = await user.findOne({ email }).lean()
