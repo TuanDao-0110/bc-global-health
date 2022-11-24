@@ -9,7 +9,7 @@ const userProfile = asyncHandler(async (req, res, next) => {
     return res.status(200).json({ msg: 'success', data })
 })
 
-
+// require log out when password success changed
 const editProfile = asyncHandler(async (req, res, next) => {
     const { nickname, role, password, email, fullname, pwdToken } = req.body
     let data = await user.findOne({ nickname }).exec()
@@ -47,7 +47,10 @@ const editProfile = asyncHandler(async (req, res, next) => {
 
 })
 
+const setBooking = asyncHandler(async (req, res, next) => {
+    const { hospitalId ,nickname,pwdToken} = req.body
+   return res.status(200).json({ msg: 'hospital id' })
+})
 
 
-
-module.exports = { userProfile, editProfile }
+module.exports = { userProfile, editProfile,setBooking }

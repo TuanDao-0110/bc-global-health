@@ -1,5 +1,59 @@
 const data = require("./hospital_information.json")
+const { format } = require('date-fns')
+const { v4: uuid } = require('uuid')
 
+const createListOfTime = () => {
+    let list = {
+        '24/12/2022': [
+            {
+                time: 7000,
+                userConfirm: false,
+                hospitalConfirm: false,
+                userVisitConfirm: false,
+            }, {
+                time: 7000,
+                userConfirm: false,
+                hospitalConfirm: false,
+                userVisitConfirm: false,
+            }, {
+                time: 7000,
+                userConfirm: false,
+                hospitalConfirm: false,
+                userVisitConfirm: false,
+            },
+
+        ],
+        '25/12/2022': [
+            {
+                time: 7000,
+                userConfirm: false,
+                hospitalConfirm: false,
+                userVisitConfirm: false,
+            }, {
+                time: 7000,
+                userConfirm: false,
+                hospitalConfirm: false,
+                userVisitConfirm: false,
+            }, {
+                time: 7000,
+                userConfirm: false,
+                hospitalConfirm: false,
+                userVisitConfirm: false,
+            },
+
+        ]
+    }
+    let time = format(new Date(), 'ddMMyyyy')
+    console.log(time)
+    let item = {
+        time: 7000,
+        userConfirm: false,
+        hospitalConfirm: false,
+        userVisitConfirm: false,
+    }
+}
+
+createListOfTime()
 
 
 const find = (id) => {
@@ -24,10 +78,10 @@ const find = (id) => {
     })
 
 
-    return templist
+    // return templist
 }
 
 
 
 
-module.exports = find
+// module.exports = find
