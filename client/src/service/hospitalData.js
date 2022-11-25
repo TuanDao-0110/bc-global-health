@@ -8,7 +8,7 @@ const getAlldata = async (dispatch) => {
     try {
         const {data} = await axios({
             method: 'GET',
-            url: `http://localhost:4000/hospital_data`
+            url: `http://localhost:4000/hospital_data/hospital_list`
         })
 
         const hospital_data = data.data
