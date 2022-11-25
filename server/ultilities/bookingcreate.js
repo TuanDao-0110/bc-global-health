@@ -1,11 +1,6 @@
-const data = require("./hospital_information.json")
 const { format } = require('date-fns')
-const nextDay = require('date-fns/nextDay')
-const setDay = require('date-fns/setDay')
-const getDay = require('date-fns/getDay')
 const subDays = require('date-fns/subDays')
 
-const { v4: uuid } = require('uuid')
 const setUpdate = (days) => {
     return format(subDays(new Date(), -days), 'dd/MM/yyyy')
 }
@@ -49,39 +44,4 @@ const createListOfTime = () => {
     return list
 
 }
-
-
-
-
-
-
-const find = (id) => {
-    let templist = []
-    data.map((item, index) => {
-
-        // if (item.id === id) {
-        //     let hospital = {}
-        //     let { id, orderNum, hospitalName } = { ...item }
-        //     hospital.id = id
-        //     hospital.orderNum = orderNum
-        //     hospital.hospitalName = hospitalName
-        //     hospital.role = 'hospital'
-        //     hospital.password = `hospital_${index}`
-        //     templist.push(hospital)
-        // }
-        if (item.id === id) {
-            item.role = 'hospital'
-            item.password = `hospital_${index}`
-            templist.push(item)
-        }
-    })
-
-
-    // return templist
-}
-
-
-
-
-// module.exports = find
 module.exports = createListOfTime

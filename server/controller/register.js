@@ -3,6 +3,8 @@ const user = require('../models/user')
 const hospital_user = require('../models/hospital')
 const admin_user = require('../models/admin')
 const allhospital = require('../models/allhospital')
+const booking = require('../models/booking_hospital')
+const createListOfTime = require('../ultilities/bookingcreate')
 const asyncHandler = require('express-async-handler')
 const register = asyncHandler(async (req, res, next) => {
     //1. check role first 
@@ -18,7 +20,7 @@ const register = asyncHandler(async (req, res, next) => {
         if (role === client) {
             data = await user.findOne({ nickname }).lean() || await user.findOne({ email }).lean()
             if (data) {
-                return res.status(401).json({ msg: 'user or password have been used' })
+                return res.status(401).json({ msg: 'nickname or email have been used' })
             }
             else {
                 data = await user.create({ fullname, nickname, password, email })
@@ -65,6 +67,13 @@ const register = asyncHandler(async (req, res, next) => {
         })
         // set up password for all hospital 
         let newHospitalUser = await hospital_user.create(data)
+        // set up booking object for each hospital --> list booking is now create for 7day from the first day register
+        let booking_time = createListOfTime()
+        console.log(booking_time)
+        newHospitalUser.map(asyncHandler(async (item, index) => {
+            const { _id: id } = item
+            let bookingCreate = await booking.create({ "booking_hospital_id": id, booking_time })
+        }))
         return res.status(201).json({ msg: `hospital id: ${id} have created as hospital_user` })
     }
 

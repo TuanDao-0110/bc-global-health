@@ -20,6 +20,20 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, 'please provide email']
+    },
+    bookingList: {
+        type: Object,
+        default: {
+            'day': {
+                time: '',
+                hospitalId: null,
+                userConfirm: false,
+                hospitalConfirm: false,
+                userVisitConfirm: false,
+                customerNote: '',
+                hospitalNote: ''
+            }
+        }
     }
 })
 
