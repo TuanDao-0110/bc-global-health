@@ -6,11 +6,11 @@ const allhospital = require('../models/allhospital')
 const asyncHandler = require('express-async-handler')
 const jwt = require('jsonwebtoken')
 
-const generateToken = (nickname, password, role) => {
+const generateToken = (id, password, role,) => {
     const accessToken = jwt.sign(
         // 1st factor for token required ==> by object/string/number type
         {
-            nickname,
+            id,
             password,
             role
         },
@@ -42,7 +42,8 @@ const login = asyncHandler(async (req, res, next) => {
         if (foundUser.password !== password) {
             return res.status(401).json({ msg: 'password not match' })
         }
-        let token = generateToken(nickname, password, role)
+        let { _id: id } = foundUser
+        let token = generateToken(id, password, role)
         return res.status(200).json({ msg: 'login success', token })
     }
     // as admin
@@ -57,7 +58,8 @@ const login = asyncHandler(async (req, res, next) => {
         if (foundUser.password !== password) {
             return res.status(401).json({ msg: 'password not match' })
         }
-        let token = generateToken(nickname, password, role)
+        let { _id: id } = foundUser
+        let token = generateToken(id, password, role)
         return res.status(200).json({ msg: 'login success', token })
     }
     // as hospital_user
@@ -72,9 +74,11 @@ const login = asyncHandler(async (req, res, next) => {
         if (foundUser.password !== password) {
             return res.status(401).json({ msg: 'password not match' })
         }
-        console.log(foundUser)
-        let token = generateToken(id, password, role)
-        return res.status(200).json({ msg: 'login success', token })
+        if (foundUser) {
+            let { _id: id } = foundUser
+            let token = generateToken(id, password, role)
+            return res.status(200).json({ msg: 'login success', token })
+        }
     }
     return res.status(404).json({ msg: 'data not found' })
 })

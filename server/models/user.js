@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
     bookingList: {
         type: Object,
         default: {
-            'day': {
+            'day': [{
                 time: '',
                 hospitalId: null,
                 userConfirm: false,
@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
                 userVisitConfirm: false,
                 customerNote: '',
                 hospitalNote: ''
-            }
+            }]
         }
     }
 })

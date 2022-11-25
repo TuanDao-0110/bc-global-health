@@ -1,11 +1,15 @@
 const { client, hospital, admin, key } = require("../ultilities/role")
 const user = require('../models/user')
+const booking_hospital = require('../models/booking_hospital')
 const asyncHandler = require('express-async-handler')
 // 1.get user profile 
 
 const userProfile = asyncHandler(async (req, res, next) => {
-    const { username } = req.body
-    const data = await user.findOne({ username }).exec()
+    const { id: _id } = req.body
+    const data = await user.findOne({ _id }).exec()
+    if (!data) {
+        return res.status(401).json({ msg: 'user not found' })
+    }
     return res.status(200).json({ msg: 'success', data })
 })
 
@@ -48,9 +52,56 @@ const editProfile = asyncHandler(async (req, res, next) => {
 })
 
 const setBooking = asyncHandler(async (req, res, next) => {
-    const { hospitalId ,nickname,pwdToken} = req.body
-   return res.status(200).json({ msg: 'hospital id' })
+    const { hospitalId: booking_hospital_id, id: _id
+        , nickname, pwdToken, bookingDate, bookingTime, customerNote } = req.body
+    // 1. find hospital vs find user information
+    const data = await booking_hospital.findOne({ booking_hospital_id })
+    const foundUser = await user.findOne({ _id })
+    let { bookingList } = foundUser
+    if (!data) {
+        return res.status(401).json({ msg: 'hospital booking not found' })
+    }
+    // 2. find date and time to fixed
+    let { booking_time: newBookingTime, booking_hospital_id: hospitalId } = data
+    for (let date in newBookingTime) {
+        if (date === bookingDate) {
+            newBookingTime[date].map((list, index) => {
+                if (list.time === bookingTime) {
+                    // found the time on booking list 
+                    // 1. changed it to user confirm
+                    list.userConfirm = true
+                    list.customerId = _id
+                    // set to user profile
+                    let temp = { ...list }
+                    temp.hospitalId = booking_hospital_id
+                    temp.customerNote = customerNote
+                    if (Object.keys(bookingList).includes(bookingDate)) {
+                        bookingList[bookingDate].push(temp)
+
+                    } else {
+                        bookingList[bookingDate] = []
+                        bookingList[bookingDate].push(temp)
+                    }
+
+                }
+            })
+        }
+    }
+
+    // set update data to hospital booking 
+    await data.updateOne({ booking_time: newBookingTime })
+    await user.updateOne({ bookingList })
+    return res.status(200).json({ msg: 'hospital id', bookingList })
 })
 
 
-module.exports = { userProfile, editProfile,setBooking }
+const editBooking = asyncHandler(async (req, res, next) => {
+    const { id: _id } = req.body
+    // find user information 
+
+    const foundUser = await user.findOne({ _id })
+    res.status()
+
+})
+
+module.exports = { userProfile, editProfile, setBooking }
