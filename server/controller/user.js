@@ -91,16 +91,18 @@ const setBooking = asyncHandler(async (req, res, next) => {
     // set update data to hospital booking 
     await data.updateOne({ booking_time: newBookingTime })
     await user.updateOne({ bookingList })
-    return res.status(200).json({ msg: 'hospital id', bookingList })
+    return res.status(200).json({ msg: 'Booking added', bookingList })
 })
 
 
 const editBooking = asyncHandler(async (req, res, next) => {
-    const { id: _id } = req.body
-    // find user information 
-
+    const { id: _id, hospitalId,userConfirm,time,customerNote} = req.body
+    // 1. find user information vs booking systerm
     const foundUser = await user.findOne({ _id })
-    res.status()
+    const fountBooking = await booking_hospital.findOne({ hospitalId })
+    // 2. check that some thing different compare to origin data
+    const {} = foundUser
+   return res.status(200).json({ msg: 'booking edited success' })
 
 })
 
