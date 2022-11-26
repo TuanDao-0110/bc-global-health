@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const verifyJWT = require('../middleware/verifyJWT')
-const { userProfile, editProfile, setBooking } = require('../controller/user')
+const { userProfile, editProfile, setBooking, editBooking } = require('../controller/user')
 router.use(verifyJWT)
 
 router.route('/')
@@ -15,8 +15,8 @@ router.route('/booking')
     // .get()
     // create booking 
     .post(setBooking)
-// edit booking
-// .patch()
+    // edit booking
+    .patch(editBooking)
 // delete booking
 // .delete()
 

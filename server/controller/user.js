@@ -97,14 +97,15 @@ const setBooking = asyncHandler(async (req, res, next) => {
 
 const editBooking = asyncHandler(async (req, res, next) => {
     const { id: _id, hospitalId, userConfirm, time, customerNote } = req.body
-    // 1. find user information vs booking systerm
+    // 1. find user information to fixed on userSchema
     const foundUser = await user.findOne({ _id })
+    // 2. find booking systerm to fixed booking
     const fountBooking = await booking_hospital.findOne({ hospitalId })
     // 2. check that some thing different compare to origin data
     const { time: oldTime, userConfirm: oldUserConfirm, customerNote: oldCustomerNote, date: oldDate } = foundUser
-    
+
     return res.status(200).json({ msg: 'booking edited success' })
 
 })
 
-module.exports = { userProfile, editProfile, setBooking }
+module.exports = { userProfile, editProfile, setBooking,editBooking }
