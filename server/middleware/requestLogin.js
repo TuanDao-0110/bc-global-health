@@ -7,7 +7,7 @@ const requestLogin = asyncHandler(async (req, res, next) => {
     let data = await user.findOne({ _id }).exec()
     let message = ''
     if (pwdToken !== data.password) {
-        message += ' please login again'
+        message += ' please login again/your infor have been changed or token expire'
         return res.status(401).json({ msg: message })
     }
     next()
