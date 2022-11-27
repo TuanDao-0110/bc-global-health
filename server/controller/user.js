@@ -106,7 +106,8 @@ const editBooking = asyncHandler(async (req, res, next) => {
     if (!Object.keys(foundUser.bookingList).includes(date)) {
         return res.status(401).json({ msg: 'if user want to change new date please delete our appointment and booking new ' })
     }
-    if (foundUser.bookingList[`${date}`].find(booking => booking.time !== time)) {
+    if (foundUser.bookingList[`${date}`].findIndex(booking => booking.time !== time)) {
+        console.log('go here')
         return res.status(401).json({ msg: 'if user want to change new date/time please delete our appointment and booking new ' })
 
     }
@@ -123,7 +124,6 @@ const editBooking = asyncHandler(async (req, res, next) => {
     })
     // update note 
     if (customerNote !== oldNote) {
-        console.log(oldNote)
         foundBooking.booking_time[`${date}`].map(item => {
             if (item.time === time) {
                 item.customerNote = customerNote
@@ -149,21 +149,34 @@ const deleteBooking = asyncHandler(async (req, res, next) => {
     const { id: _id, hospitalId: booking_hospital_id, time, customerNote, date } = req.body
     // find user vs find hostpital
     let findUser = await user.findOne({ _id }).exec()
+    if (!findUser.bookingList[`${date}`].find(booking => booking.time === time) || !Object.keys(findUser.bookingList).includes(date)) {
+        return res.status(401).json({ msg: `you dont have any booking on ${date} at ${time} ` })
+    }
     let findHospital = await booking_hospital.findOne({ booking_hospital_id }).exec()
     //  find user's booking time by date/time/booking_hospital_id
     if (!Object.keys(findHospital.booking_time).includes(date)) return res.status(401).json({ msg: 'booking time can not find ' })
     findHospital.booking_time[`${date}`].map(item => {
         let { time, customerId, userConfirm, customerNote, } = item
         if (time === time && customerId === _id) {
-            customerId = null
-            userConfirm = false
-            customerNote = ''
-            return res.status(200).json({ ms: 'success' })
+            item.customerId = null
+            item.userConfirm = false
+            item.customerNote = ''
         }
 
     })
-    findHospital = await findHospital.save()
-    res.status(200).json({ msg: "delete" })
+    let newBooking_time = findHospital.booking_time
+    let index = findUser.bookingList[`${date}`]?.findIndex(booking => booking.hospitalId === booking_hospital_id && booking.time === time)
+    // ?.filter(booking => booking.time !== time)
+    findUser.bookingList[`${date}`].splice(index, 1)
+    let newBookingList = findUser.bookingList[`${date}`]
+    findUser.bookingList[`${date}`] = newBookingList
+    const updateBookingHospital = await findHospital.updateOne({ booking_time: newBooking_time })
+    const updateBookingUser = await findUser.updateOne(findUser)
+    if (!updateBookingHospital || !updateBookingUser) {
+        return res.status(404).json({ msg: "error" })
+    }
+
+    return res.status(200).json({ ms: `delete success date ${date} with time : ${time}` })
 })
 
 

@@ -69,7 +69,6 @@ const register = asyncHandler(async (req, res, next) => {
         let newHospitalUser = await hospital_user.create(data)
         // set up booking object for each hospital --> list booking is now create for 7day from the first day register
         let booking_time = createListOfTime()
-        console.log(booking_time)
         newHospitalUser.map(asyncHandler(async (item, index) => {
             const { _id: id } = item
             let bookingCreate = await booking.create({ "booking_hospital_id": id, booking_time })
