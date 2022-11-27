@@ -16,15 +16,12 @@ const userProfile = asyncHandler(async (req, res, next) => {
 // require log out when password success changed
 const editProfile = asyncHandler(async (req, res, next) => {
     const { nickname, role, password, email, fullname, pwdToken } = req.body
-    let data = await user.findOne({ nickname }).exec()
     let message = ''
+    let data = await user.findOne({ nickname }).exec()
     // 1. check that pwdtoken === database token or not 
     // 1.1 make sure that in case user changed password but he still using all token
     // 1.2 user have to login and get new token
-    if (pwdToken !== data.password) {
-        message += ' please login again'
-        return res.status(401).json({ msg: message })
-    }
+
     if (password && password !== data.password) {
         data.password = password
         data = await data.save()
@@ -54,23 +51,25 @@ const editProfile = asyncHandler(async (req, res, next) => {
 const setBooking = asyncHandler(async (req, res, next) => {
     const { hospitalId: booking_hospital_id, id: _id
         , nickname, pwdToken, bookingDate, bookingTime, customerNote } = req.body
+
     // 1. find hospital vs find user information
-    const data = await booking_hospital.findOne({ booking_hospital_id })
+    let data = await booking_hospital.findOne({ booking_hospital_id })
     const foundUser = await user.findOne({ _id })
     let { bookingList } = foundUser
     if (!data) {
         return res.status(401).json({ msg: 'hospital booking not found' })
     }
     // 2. find date and time to fixed
-    let { booking_time: newBookingTime, booking_hospital_id: hospitalId } = data
+    let { booking_time: newBookingTime } = data
     for (let date in newBookingTime) {
         if (date === bookingDate) {
-            newBookingTime[date].map((list, index) => {
+            newBookingTime[date].map(list => {
                 if (list.time === bookingTime) {
                     // found the time on booking list 
                     // 1. changed it to user confirm
                     list.userConfirm = true
                     list.customerId = _id
+                    list.customerNote = customerNote
                     // set to user profile
                     let temp = { ...list }
                     temp.hospitalId = booking_hospital_id
@@ -96,16 +95,50 @@ const setBooking = asyncHandler(async (req, res, next) => {
 
 
 const editBooking = asyncHandler(async (req, res, next) => {
-    const { id: _id, hospitalId, userConfirm, time, customerNote } = req.body
+    const { id: _id, hospitalId: booking_hospital_id, time, customerNote, date } = req.body
     // 1. find user information to fixed on userSchema
-    const foundUser = await user.findOne({ _id })
+    const foundUser = await user.findOne({ _id }).exec()
     // 2. find booking systerm to fixed booking
-    const fountBooking = await booking_hospital.findOne({ hospitalId })
-    // 2. check that some thing different compare to origin data
-    const { time: oldTime, userConfirm: oldUserConfirm, customerNote: oldCustomerNote, date: oldDate } = foundUser
+    const foundBooking = await booking_hospital.findOne({ booking_hospital_id }).exec()
+    if (!foundUser || !foundBooking) {
+        return res.status(401).json({ msg: "can not found user or hospital booking" })
+    }
+    // 3. check that some thing different compare to origin data
+    // when user need to update booking 
+    // user can change date / time --> we can delete this time table --> call set new booking
+    // user can update their note --> we can update note --> 
+    let oldNote = foundUser.bookingList[`${date}`].map(item => {
+        if (item === customerNote) {
+            return item.customerNote
+        }
+    })
+    // update note 
+    if (customerNote !== oldNote) {
+        foundBooking.booking_time[`${date}`].map(item => {
+            if (item.time === time) {
+                item.customerNote = customerNote
+            }
+        })
+        let newdata = foundBooking.booking_time
+        await foundBooking.updateOne({ booking_time: newdata })
+        foundUser.bookingList[`${date}`].map(item => {
+            if (item.time === time) {
+                item.customerNote = customerNote
+            }
+        })
+        newdata = foundUser.bookingList
+        await foundUser.updateOne({ bookingList: newdata })
 
-    return res.status(200).json({ msg: 'booking edited success' })
+        return res.status(200).json({ msg: 'booking edited success', })
+    }
 
+    return res.status(401).json({ msg: 'fail' })
 })
 
-module.exports = { userProfile, editProfile, setBooking,editBooking }
+const deleteBooking = asyncHandler(async (req, res, next) => {
+
+    res.status(200).json({ msg: "delete" })
+})
+
+
+module.exports = { userProfile, editProfile, setBooking, editBooking, deleteBooking }
