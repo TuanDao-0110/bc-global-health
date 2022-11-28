@@ -1,7 +1,8 @@
 
 import { BASE_URL } from "../util/url.js";
 import axios from 'axios'
-import { getHospital } from '../redux/reducer/hospitalReducer'
+import { getHospital, getHospitalById } from '../redux/reducer/hospitalReducer'
+import { data } from "autoprefixer";
 
 
 
@@ -18,3 +19,17 @@ export const getAllHospitalList = async (dispatch) => {
         console.log(error)
     }
 }
+
+export const getHospitaBookingListById = async (dispatch, id) => {
+    try {
+        const { data } = await axios({
+            url: `${BASE_URL}/hospital_data/hospital_booking?id=${id}`
+        })
+        console.log(data)
+        dispatch(getHospitaBookingListById(data))
+    } catch (error) {
+
+    }
+}
+
+

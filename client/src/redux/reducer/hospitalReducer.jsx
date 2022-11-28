@@ -3,8 +3,8 @@ const { createSlice } = require("@reduxjs/toolkit");
 const initalState = {
   hospitals: [
     {
-      id: "01203",
-      bookingId: "01203_1",
+      _id: "63775326dfd6ff0292a4e67b",
+      id: "01201",
       orderNum: "7",
       hospitalName: "Vanhan Vaasan sairaala",
       address: "PL 13",
@@ -16,41 +16,51 @@ const initalState = {
       organizationId: "01201",
       organizationName: "Vanhan Vaasan sairaala",
       serviceId: "130",
-      Service: "Valtion mielisairaala",
+      service: "Valtion mielisairaala",
+      password: "password",
+      role: "hospital",
+      __v: 0,
     },
     {
-      id: "01203",
-      bookingId: "01203_1",
-      orderNum: "7",
-      hospitalName: "helsinki Vaasan sairaala",
-      address: "PL 13",
-      postinumero: "65381",
-      location: "Vaasa",
-      resisdentCode: "905",
-      city: "Vaasa",
+      _id: "63775326dfd6ff0292a4e67e",
+      id: "30005",
+      orderNum: "21",
+      hospitalName: "Järvi-Pohjanmaan yhteistoiminta-alue sosiaalitoimi/Intervalliosasto",
+      address: "Opintie 1",
+      postinumero: "62800",
+      location: "Vimpeli",
+      resisdentCode: "934",
+      city: "Vimpeli",
       language: "fi",
-      organizationId: "01201",
-      organizationName: "Vanhan Vaasan sairaala",
-      serviceId: "130",
-      Service: "Valtion mielisairaala",
+      organizationId: "005",
+      organizationName: "Alajärven kaupunki",
+      serviceId: "320",
+      service: "Vanhusten ympärivuorokautinen palveluasuminen",
+      password: "password",
+      role: "hospital",
+      __v: 0,
     },
     {
-      id: "01205",
-      bookingId: "01205_1",
-      orderNum: "7",
-      hospitalName: "Järvi-Pohjanmaan yhteistoiminta-alue sosiaalitoimi/Alarinteen asuntola",
-      address: "Niuvankuja 65",
-      postinumero: "65381",
-      location: "Vaasa",
-      resisdentCode: "905",
-      city: "Vaasa",
+      _id: "63775326dfd6ff0292a4e67f",
+      id: "30005",
+      orderNum: "20",
+      hospitalName: "Järvi-Pohjanmaan yhteistoiminta-alue sosiaalitoimi/Kultakämmen",
+      address: "Lääkärintie 3",
+      postinumero: "62900",
+      location: "Alajärvi",
+      resisdentCode: "005",
+      city: "Alajärvi",
       language: "fi",
-      organizationId: "01201",
-      organizationName: "Vanhan Vaasan sairaala",
-      serviceId: "130",
-      Service: "Valtion mielisairaala",
+      organizationId: "005",
+      organizationName: "Alajärven kaupunki",
+      serviceId: "320",
+      service: "Vanhusten ympärivuorokautinen palveluasuminen",
+      password: "password",
+      role: "hospital",
+      __v: 0,
     },
   ],
+  hospitalById: {},
 };
 
 const hospitalReducer = createSlice({
@@ -61,9 +71,13 @@ const hospitalReducer = createSlice({
       const { data } = action.payload;
       return { ...state, hospitals: data };
     },
+    getHospitalById: (state, action) => {
+      const { data } = action.payload;
+      return { ...state, hospitalById: data };
+    },
   },
 });
 
-export const { getHospital } = hospitalReducer.actions;
+export const { getHospital ,getHospitalById} = hospitalReducer.actions;
 
 export default hospitalReducer.reducer;
