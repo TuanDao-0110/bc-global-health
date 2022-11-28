@@ -53,17 +53,17 @@ const setBooking = asyncHandler(async (req, res, next) => {
         , nickname, pwdToken, bookingDate, bookingTime, customerNote } = req.body
 
     // 1. find hospital vs find user information
-    let data = await booking_hospital.findOne({ booking_hospital_id })
-    const foundUser = await user.findOne({ _id })
+    let data = await booking_hospital.findOne({ booking_hospital_id }).exec()
+    const foundUser = await user.findOne({ _id }).exec()
     let { bookingList } = foundUser
     if (!data) {
         return res.status(401).json({ msg: 'hospital booking not found' })
     }
     // 2. find date and time to fixed
-    let { booking_time: newBookingTime } = data
-    for (let date in newBookingTime) {
+    let { booking_time } = data
+    for (let date in booking_time) {
         if (date === bookingDate) {
-            newBookingTime[date].map(list => {
+            booking_time[date].map(list => {
                 if (list.time === bookingTime) {
                     // found the time on booking list 
                     // 1. changed it to user confirm
@@ -76,10 +76,11 @@ const setBooking = asyncHandler(async (req, res, next) => {
                     temp.customerNote = customerNote
                     if (Object.keys(bookingList).includes(bookingDate)) {
                         bookingList[bookingDate].push(temp)
-
+                        
                     } else {
                         bookingList[bookingDate] = []
                         bookingList[bookingDate].push(temp)
+                        console.log(bookingList)
                     }
 
                 }
@@ -88,8 +89,8 @@ const setBooking = asyncHandler(async (req, res, next) => {
     }
 
     // set update data to hospital booking 
-    await data.updateOne({ booking_time: newBookingTime })
-    await user.updateOne({ bookingList })
+    await data.updateOne({ booking_time })
+    await foundUser.updateOne({bookingList})
     return res.status(200).json({ msg: 'Booking added', bookingList })
 })
 
@@ -103,11 +104,10 @@ const editBooking = asyncHandler(async (req, res, next) => {
     if (!foundUser || !foundBooking) {
         return res.status(401).json({ msg: "can not found user or hospital booking" })
     }
-    if (!Object.keys(foundUser.bookingList).includes(date)) {
+    if (!Object.keys(foundUser.bookingList).includes(date) || foundUser.bookingList[`${date}`]?.length === 0) {
         return res.status(401).json({ msg: 'if user want to change new date please delete our appointment and booking new ' })
     }
-    if (foundUser.bookingList[`${date}`].findIndex(booking => booking.time !== time)) {
-        console.log('go here')
+    if (foundUser.bookingList[`${date}`].findIndex(booking => booking.time === time) ===-1) {
         return res.status(401).json({ msg: 'if user want to change new date/time please delete our appointment and booking new ' })
 
     }
@@ -149,13 +149,16 @@ const deleteBooking = asyncHandler(async (req, res, next) => {
     const { id: _id, hospitalId: booking_hospital_id, time, customerNote, date } = req.body
     // find user vs find hostpital
     let findUser = await user.findOne({ _id }).exec()
+    // check that user have correct date vs time on that booking list 
     if (!findUser.bookingList[`${date}`].find(booking => booking.time === time) || !Object.keys(findUser.bookingList).includes(date)) {
         return res.status(401).json({ msg: `you dont have any booking on ${date} at ${time} ` })
     }
+    // find hospital
     let findHospital = await booking_hospital.findOne({ booking_hospital_id }).exec()
     //  find user's booking time by date/time/booking_hospital_id
     if (!Object.keys(findHospital.booking_time).includes(date)) return res.status(401).json({ msg: 'booking time can not find ' })
-    findHospital.booking_time[`${date}`].map(item => {
+    // set up hospital booking
+    findHospital.booking_time[`${date}`]?.map(item => {
         let { time, customerId, userConfirm, customerNote, } = item
         if (time === time && customerId === _id) {
             item.customerId = null
