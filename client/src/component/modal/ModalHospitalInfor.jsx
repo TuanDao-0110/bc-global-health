@@ -39,7 +39,7 @@ export default function ModalHospitalInfor() {
             ></iframe>
           </div>
           <div className="mt-6 sm:flex">
-            <BtnBook id={hospital.bookingId} message={"Booking"}></BtnBook>
+            <BtnBook id={hospital._id} message={"Booking"}></BtnBook>
             <button
               className="mt-3 inline-block w-full rounded-lg bg-gray-50 px-5 py-3 text-center text-sm font-semibold text-gray-500 sm:mt-0 sm:ml-3 sm:w-auto"
               onClick={() => {

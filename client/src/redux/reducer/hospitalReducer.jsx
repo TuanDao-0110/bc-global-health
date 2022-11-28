@@ -57,13 +57,13 @@ const hospitalReducer = createSlice({
   name: "hospital",
   initialState: initalState,
   reducers: {
-    newHospital: (state, action) => {
-      const {hospital_data } = action.payload
-      return {...state,hospitals : hospital_data}
+    getHospital: (state, action) => {
+      const { data } = action.payload;
+      return { ...state, hospitals: data };
     },
   },
 });
 
-export const { newHospital } = hospitalReducer.actions;
+export const { getHospital } = hospitalReducer.actions;
 
 export default hospitalReducer.reducer;

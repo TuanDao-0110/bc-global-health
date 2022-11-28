@@ -1,24 +1,20 @@
 
-
+import { BASE_URL } from "../util/url.js";
 import axios from 'axios'
-import { newHospital } from '../redux/reducer/hospitalReducer'
+import { getHospital } from '../redux/reducer/hospitalReducer'
 
 
-const getAlldata = async (dispatch) => {
+
+export const getAllHospitalList = async (dispatch) => {
+
+
     try {
-        const {data} = await axios({
-            method: 'GET',
-            url: `http://localhost:4000/hospital_data/hospital_list`
-        })
+        const { data } = await axios({
+            url: `${BASE_URL}/hospital_data/hospital_list`,
+        });
 
-        const hospital_data = data.data
-        dispatch(
-            newHospital({ hospital_data })
-        )
+        dispatch(getHospital(data))
     } catch (error) {
         console.log(error)
-
     }
 }
-
-export default getAlldata
