@@ -73,11 +73,11 @@ const hospitalReducer = createSlice({
     },
     getHospitalById: (state, action) => {
       const { data } = action.payload;
-      return { ...state, hospitalById: data };
+      return { ...state, hospitalById: data.booking_time };
     },
   },
 });
 
-export const { getHospital ,getHospitalById} = hospitalReducer.actions;
+export const { getHospital, getHospitalById } = hospitalReducer.actions;
 
 export default hospitalReducer.reducer;

@@ -12,7 +12,6 @@ const modalReducer = createSlice({
       return { ...state, modal: false, infor: null };
     },
     open_modal: (state, action) => {
-      console.log(action);
       const { infor } = action.payload;
       return { ...state, modal: true, infor: infor };
     },
