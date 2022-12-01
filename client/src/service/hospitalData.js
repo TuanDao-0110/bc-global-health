@@ -25,8 +25,7 @@ export const getHospitaBookingListById = async (dispatch, id) => {
         const { data } = await axios({
             url: `${BASE_URL}/hospital_data/hospital_booking?id=${id}`
         })
-        console.log(data)
-        dispatch(getHospitaBookingListById(data))
+        dispatch(getHospitalById(data))
     } catch (error) {
 
     }
