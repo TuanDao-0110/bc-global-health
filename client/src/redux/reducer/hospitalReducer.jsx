@@ -60,7 +60,28 @@ const initalState = {
       __v: 0,
     },
   ],
-  hospitalById: {},
+  hospitalById: {
+    "27/11/2022": [
+      {
+        customerId: null,
+        customerNote: "",
+        hospitalConfirm: false,
+        hospitalNote: "",
+        time: 730,
+        userConfirm: false,
+        userVisitConfirm: false,
+      },
+      {
+        customerId: null,
+        customerNote: "",
+        hospitalConfirm: false,
+        hospitalNote: "",
+        time: 730,
+        userConfirm: false,
+        userVisitConfirm: false,
+      },
+    ],
+  },
 };
 
 const hospitalReducer = createSlice({
