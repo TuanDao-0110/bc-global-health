@@ -48,7 +48,7 @@ export default function BookingForm() {
             />
           </LocalizationProvider>
         </form>
-        <div className="flex flex-wrap w-4/5 m-auto gap-2 mt-10 justify-center">
+        <div className="flex flex-wrap w-4/5 m-auto gap-2 mt-10 justify-start">
           {Object.keys(bookingList).includes(date) ? renderBooking(bookingList[`${date}`]) : <p>! sorry we dont have schedule for {date} yet </p>}
         </div>
       </div>
