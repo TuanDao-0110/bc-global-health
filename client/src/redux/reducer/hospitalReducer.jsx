@@ -1,4 +1,4 @@
-const { createSlice } = require("@reduxjs/toolkit");
+import { createSlice } from "@reduxjs/toolkit";
 
 const initalState = {
   hospitals: [
@@ -87,6 +87,7 @@ const initalState = {
       ],
     },
   },
+  hospitalUser: {},
 };
 
 const hospitalReducer = createSlice({

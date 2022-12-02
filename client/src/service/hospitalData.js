@@ -2,7 +2,6 @@
 import { BASE_URL } from "../util/url.js";
 import axios from 'axios'
 import { getHospital, getHospitalById } from '../redux/reducer/hospitalReducer'
-import { data } from "autoprefixer";
 
 
 
