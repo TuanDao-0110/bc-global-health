@@ -1,6 +1,5 @@
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import { el } from "date-fns/locale";
 import React from "react";
 
 export default function Check({ time, userConfirm }) {
