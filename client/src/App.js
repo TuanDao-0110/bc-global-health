@@ -10,11 +10,13 @@ import Shopping from './page/shopping/Shopping';
 import Template from './template/Template';
 import Portfolio from './page/portfolio/Portfolio';
 import Loading from './page/loading/Loading';
+import { useSelector } from 'react-redux';
 
 function App() {
+  const loading = useSelector(state => state.loadingReducer)
   return (
     <>
-      {/* <Loading></Loading> */}
+      {loading ? <Loading></Loading> : ''}
       <Routes>
         <Route path='login' element={<Login></Login>}></Route>
         <Route path='register' element={<Register></Register>}></Route>

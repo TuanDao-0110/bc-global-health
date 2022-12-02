@@ -2,6 +2,7 @@
 import { BASE_URL } from "../util/url.js";
 import axios from 'axios'
 import { getUserProfile } from "../redux/reducer/userReducer.jsx";
+import { setUpToken } from "./tokenService.js";
 
 
 
@@ -20,11 +21,13 @@ export const handleRegister = async (userInfo) => {
 
 export const handleLogin = async (userInfo, dispatch) => {
     try {
-        const data = await axios.post({
+        const { token, msg } = await axios.post({
             url: `${BASE_URL}/login`,
             data: userInfo
         })
+        setUpToken()
+        alert(msg)
     } catch (error) {
-
+        console.log(error)
     }
 }
