@@ -6,6 +6,10 @@ const hospital_booking_schema = new mongoose.Schema({
         require: true,
         ref: 'hospital_users'
     },
+    hospitalName: {
+        type: String,
+        require: true
+    },
     booking_time: {
         type: Object,
     }
