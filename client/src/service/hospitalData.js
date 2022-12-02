@@ -26,7 +26,7 @@ export const getHospitaBookingListById = async (dispatch, id) => {
         })
         dispatch(getHospitalById(data))
     } catch (error) {
-
+        console.log(error)
     }
 }
 
