@@ -7,7 +7,9 @@ import ConfirmCheck from "../../component/check/ConfirmCheck";
 import { openLoading } from "../../redux/reducer/loadingReducer";
 import { handleDeleteBooking, handleGetUserProfile } from "../../service/userService";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import style from "./userBooking.module.css";
+import EditNote from "../../component/modal/EditNote";
 export default function UserBookingList() {
   // get userPortfile :
   const { userProfile } = useSelector((state) => state.userReducer);
@@ -18,6 +20,29 @@ export default function UserBookingList() {
   useEffect(() => {
     handleGetUserProfile(dispatch);
   }, []);
+  //   modal note :
+  const [modal, setModal] = useState({
+    display: false,
+    editInfo: {
+      customerNote: "",
+      hospitalId: "",
+      date: "",
+      time: null,
+      hospitalName: "",
+    },
+  });
+  const setUpEditInfo = (date, infor) => {
+    let editInfo = {};
+    const { customerNote, hospitalId, time, hospitalName } = infor;
+    Object.assign(editInfo, {
+      date,
+      customerNote,
+      hospitalId,
+      time,
+      hospitalName,
+    });
+    return editInfo;
+  };
   //   load more
   const [load, setLoad] = useState(2);
   //   render fn
@@ -52,8 +77,20 @@ export default function UserBookingList() {
                   </div>
 
                   <div className="md:mt-0 text-gray-800 font-semibold text-xl mb-2">{item["hospitalName"]}</div>
-                  <div>
+                  <div className="flex">
                     <p className="p-2 pl-0 pt-1 text-sm text-gray-600">Your Notes : {item["customerNote"]}</p>
+                    <button
+                      className="text-green-800 hover:text-green-500 cursor-pointer"
+                      onClick={() => {
+                        setModal({
+                          //   ...modal,
+                          display: true,
+                          editInfo: setUpEditInfo(i, item),
+                        });
+                      }}
+                    >
+                      <EditIcon></EditIcon>
+                    </button>
                   </div>
                   <div className="flex flex-col gap-5 justify-center w-4/5 m-auto my-5">
                     <ConfirmCheck details={"userConfirm"} cheked={item["userConfirm"]}></ConfirmCheck>
@@ -82,9 +119,12 @@ export default function UserBookingList() {
     return deleteInfor;
   };
   return (
-    <div className="flex flex-col w-4/5 mx-auto my-10">
-      <h3 className="font-extrabold text-4xl text-green-800 text-center mb-10"> Your booking list</h3>
-      {renderUserConfirm(userProfile.bookingList)}
-    </div>
+    <>
+      <div className="flex flex-col w-4/5 mx-auto my-10 relative">
+        <h3 className="font-extrabold text-4xl text-green-800 text-center mb-10"> Your booking list</h3>
+        <EditNote setModal={setModal} modal={modal}></EditNote>
+        {renderUserConfirm(userProfile.bookingList)}
+      </div>
+    </>
   );
 }

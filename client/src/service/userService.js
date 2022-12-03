@@ -95,6 +95,7 @@ export const handleBookingService = async (dispatch, bookingInfo, navigate) => {
 }
 export const handleEditBookingNote = async (dispatch, editInfo) => {
     const { date, hospitalName, time } = editInfo
+    console.log(editInfo)
     openLoadingService(dispatch)
     try {
         const { data } = await axios({
@@ -102,13 +103,13 @@ export const handleEditBookingNote = async (dispatch, editInfo) => {
             headers: {
                 Authorization: setUpHeader()
             },
-            method: 'post',
+            method: 'patch',
             data: editInfo
         })
         if (data) {
+            alert(`your booking's note at ${hospitalName} on ${date} at ${time} have been edited`)
             await handleGetUserProfile(dispatch)
         }
-        alert(`your booking's note at ${hospitalName} on ${date} at ${time} have been edited`)
     } catch (error) {
         alert(error)
         console.log(error)
