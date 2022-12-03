@@ -74,13 +74,13 @@ const setBooking = asyncHandler(async (req, res, next) => {
                     let temp = { ...list }
                     temp.hospitalId = booking_hospital_id
                     temp.customerNote = customerNote
+                    temp.hospitalName = data.hospitalName
                     if (Object.keys(bookingList).includes(bookingDate)) {
                         bookingList[bookingDate].push(temp)
-                        
+
                     } else {
                         bookingList[bookingDate] = []
                         bookingList[bookingDate].push(temp)
-                        console.log(bookingList)
                     }
 
                 }
@@ -90,7 +90,7 @@ const setBooking = asyncHandler(async (req, res, next) => {
 
     // set update data to hospital booking 
     await data.updateOne({ booking_time })
-    await foundUser.updateOne({bookingList})
+    await foundUser.updateOne({ bookingList })
     return res.status(200).json({ msg: 'Booking added', bookingList })
 })
 
@@ -107,7 +107,7 @@ const editBooking = asyncHandler(async (req, res, next) => {
     if (!Object.keys(foundUser.bookingList).includes(date) || foundUser.bookingList[`${date}`]?.length === 0) {
         return res.status(401).json({ msg: 'if user want to change new date please delete our appointment and booking new ' })
     }
-    if (foundUser.bookingList[`${date}`].findIndex(booking => booking.time === time) ===-1) {
+    if (foundUser.bookingList[`${date}`].findIndex(booking => booking.time === time) === -1) {
         return res.status(401).json({ msg: 'if user want to change new date/time please delete our appointment and booking new ' })
 
     }

@@ -29,8 +29,10 @@ function App() {
             <Route path=':id' element={<BookingForm></BookingForm>} ></Route>
           </Route>
           <Route path='shop' element={<Shopping></Shopping>}></Route>
-          <Route path='portfolio' element={<Portfolio></Portfolio>}></Route>
-          <Route path='userbooking' element={<UserBookingList></UserBookingList>}></Route>
+          <Route path='user'>
+            <Route path='portfolio' element={<Portfolio></Portfolio>}></Route>
+            <Route path='userbooking' element={<UserBookingList></UserBookingList>}></Route>
+          </Route>
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

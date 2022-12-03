@@ -10,5 +10,10 @@ export default function Portfolio() {
     openLoadingService(dispatch);
     closeLoadingService(dispatch);
   }, []);
-  return <div>Portfolio</div>;
+
+
+  return <div>
+
+    
+  </div>;
 }

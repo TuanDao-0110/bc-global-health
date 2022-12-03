@@ -14,11 +14,11 @@ export const getAllHospitalList = async (dispatch) => {
         });
 
         dispatch(getHospital(data))
-        closeLoadingService(dispatch)
     } catch (error) {
-        closeLoadingService(dispatch)
         console.log(error)
     }
+    closeLoadingService(dispatch)
+
 }
 
 export const getHospitaBookingListById = async (dispatch, id) => {
@@ -29,11 +29,11 @@ export const getHospitaBookingListById = async (dispatch, id) => {
         })
 
         dispatch(getHospitalById(data))
-        closeLoadingService(dispatch)
     } catch (error) {
-        closeLoadingService(dispatch)
         console.log(error)
     }
+    closeLoadingService(dispatch)
+
 }
 
 
