@@ -42,7 +42,6 @@ export default function Register() {
   // check pwd correct form
   const [pwdCheck, setPwdCheck] = useState(false);
   const handlePwdCheck = (pwd) => {
-    console.log("test pwd");
     return setPwdCheck(pwdRegex.test(pwd));
   };
   // handle submit

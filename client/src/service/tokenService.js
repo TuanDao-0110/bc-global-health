@@ -3,6 +3,7 @@ export const setUpToken = (token) => {
 }
 export const setUpHeader = () => {
     let token = JSON.parse(localStorage.getItem('token'))
+    console.log(token)
     return `Bearer ${token}`
 }
 export const checkToken = () => {

@@ -5,6 +5,7 @@ import { setUserProfile } from "../redux/reducer/userReducer.jsx";
 import { setUpHeader, setUpToken } from "./tokenService.js";
 import { closeLoadingService, openLoadingService } from "./loadingService.js";
 import AlertSucces from "../component/alert/AlertSucces.jsx";
+import { da, ms } from "date-fns/locale";
 
 export const handleRegister = async (userInfo, dispatch, navigate) => {
     openLoadingService(dispatch)
@@ -66,11 +67,27 @@ export const handleGetUserProfile = async (dispatch) => {
     }
     closeLoadingService(dispatch)
 }
-export const handleBooking = async(dispatch)=> { 
+export const handleBookingService = async (dispatch, bookingInfo) => {
     openLoadingService(dispatch)
     try {
-            
+        const { data } = await axios({
+            url: `${BASE_URL}/user/booking`,
+            method: "post",
+            headers: {
+                Authorization: setUpHeader()
+            },
+            data: bookingInfo
+        })
+        if (data) {
+            const { msg } = data
+            alert(msg)
+        }
+
     } catch (error) {
-        
+        alert('booking fail')
+        console.log(error)
+
     }
+    closeLoadingService(dispatch)
+    window.location.reload()
 }

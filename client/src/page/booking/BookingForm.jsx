@@ -57,7 +57,7 @@ export default function BookingForm() {
         <div className="flex flex-wrap w-4/5 m-auto gap-2 mt-10 justify-start">
           {Object.keys(booking_time)?.includes(date) ? renderBooking(booking_time[`${date}`]) : <p>! sorry we dont have schedule for {date} yet </p>}
         </div>
-        <BookingConfirm id={param} hospitalName={hospitalName} confirmTime={confirmTime}></BookingConfirm>
+        <BookingConfirm hospitalId={id} bookingDate={date} hospitalName={hospitalName} bookingTime={confirmTime}></BookingConfirm>
       </div>
     </div>
   );

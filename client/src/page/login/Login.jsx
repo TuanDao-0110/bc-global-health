@@ -185,7 +185,11 @@ export default function Login() {
                 />
               </div>
             </div>
-            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">Forgot Password ?</span>
+            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer"
+            onClick={()=> { 
+              navigate('/register')
+            }}
+            >dont have account ?  ?</span>
             <BtnBackMain></BtnBackMain>
           </div>
         </form>
