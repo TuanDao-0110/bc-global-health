@@ -1,14 +1,15 @@
 
 import { BASE_URL } from "../util/url.js";
 import axios from 'axios'
-import { getUserProfile } from "../redux/reducer/userReducer.jsx";
-import { setUpToken } from "./tokenService.js";
+import { setUserProfile } from "../redux/reducer/userReducer.jsx";
+import { setUpHeader, setUpToken } from "./tokenService.js";
 import { closeLoadingService, openLoadingService } from "./loadingService.js";
+import AlertSucces from "../component/alert/AlertSucces.jsx";
 
 export const handleRegister = async (userInfo, dispatch, navigate) => {
     openLoadingService(dispatch)
     try {
-        const {data} = await axios({
+        const { data } = await axios({
             method: 'post',
             url: `${BASE_URL}/register`,
             data: userInfo
@@ -28,16 +29,48 @@ export const handleRegister = async (userInfo, dispatch, navigate) => {
 
 }
 
-export const handleLogin = async (userInfo, dispatch) => {
+export const handleLogin = async (userInfo, dispatch, navigate) => {
+    openLoadingService(dispatch)
     try {
-        const { token, msg } = await axios({
+        const { data } = await axios({
             method: 'post',
             url: `${BASE_URL}/login`,
             data: userInfo,
         })
-        setUpToken()
+        const { token, msg } = data
+        setUpToken(token)
         alert(msg)
+        navigate('/')
+        // closeLoadingService(dispatch)
+    } catch (error) {
+        alert('login fail')
+        console.log(error)
+    }
+    closeLoadingService(dispatch)
+
+}
+
+export const handleGetUserProfile = async (dispatch) => {
+    openLoadingService(dispatch)
+    try {
+        const { data, msg } = await axios({
+            method: 'post',
+            url: `${BASE_URL}/user`,
+            headers: `${setUpHeader()}`
+        })
+        if (data) {
+            dispatch(setUserProfile(data))
+        }
     } catch (error) {
         console.log(error)
+    }
+    closeLoadingService(dispatch)
+}
+export const handleBooking = async(dispatch)=> { 
+    openLoadingService(dispatch)
+    try {
+            
+    } catch (error) {
+        
     }
 }

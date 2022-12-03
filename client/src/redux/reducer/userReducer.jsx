@@ -60,13 +60,13 @@ const userReducer = createSlice({
   name: "user",
   initialState: initalState,
   reducers: {
-    getUserProfile: (state, action) => {
+    setUserProfile: (state, action) => {
       const { data } = action.payload;
       return { ...state, userProfile: data };
     },
   },
 });
 
-export const { getUserProfile } = userReducer.actions;
+export const { setUserProfile } = userReducer.actions;
 
 export default userReducer.reducer;

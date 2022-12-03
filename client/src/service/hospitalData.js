@@ -8,17 +8,13 @@ import { closeLoadingService, openLoadingService } from "./loadingService.js";
 
 export const getAllHospitalList = async (dispatch) => {
     openLoadingService(dispatch)
-    console.log('get all hospital')
     try {
         const { data } = await axios({
             url: `${BASE_URL}/hospital_data/hospital_list`,
         });
 
         dispatch(getHospital(data))
-
-        setTimeout(() => {
-            closeLoadingService(dispatch)
-        }, 1000)
+        closeLoadingService(dispatch)
     } catch (error) {
         closeLoadingService(dispatch)
         console.log(error)
@@ -33,9 +29,7 @@ export const getHospitaBookingListById = async (dispatch, id) => {
         })
 
         dispatch(getHospitalById(data))
-        setTimeout(() => {
-            closeLoadingService(dispatch)
-        }, 1000)
+        closeLoadingService(dispatch)
     } catch (error) {
         closeLoadingService(dispatch)
         console.log(error)

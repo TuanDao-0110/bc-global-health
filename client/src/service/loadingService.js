@@ -4,5 +4,7 @@ export const openLoadingService = (dispatch) => {
     return dispatch(openLoading())
 }
 export const closeLoadingService = (dispatch) => {
-    return dispatch(closeLoading())
+    setTimeout(() => {
+        return dispatch(closeLoading())
+    }, 1000);
 }
