@@ -41,8 +41,7 @@ export const handleLogin = async (userInfo, dispatch, navigate) => {
         const { token, msg } = data
         setUpToken(token)
         alert(msg)
-        navigate('/')
-        // closeLoadingService(dispatch)
+        await handleGetUserProfile(dispatch)
     } catch (error) {
         alert('login fail')
         console.log(error)
@@ -54,13 +53,13 @@ export const handleLogin = async (userInfo, dispatch, navigate) => {
 export const handleGetUserProfile = async (dispatch) => {
     openLoadingService(dispatch)
     try {
-        const { data, msg } = await axios({
+        const { data } = await axios({
             method: 'post',
             url: `${BASE_URL}/user`,
             headers: `${setUpHeader()}`
         })
         if (data) {
-            dispatch(setUserProfile(data))
+            // dispatch(setUserProfile(data))
         }
     } catch (error) {
         console.log(error)

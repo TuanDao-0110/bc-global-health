@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { closeLoadingService, openLoadingService } from "../../service/loadingService";
 
 export default function Portfolio() {
-  return (
-    <div>Portfolio</div>
-  )
+  // dispatch
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    openLoadingService(dispatch);
+    closeLoadingService(dispatch);
+  }, []);
+  return <div>Portfolio</div>;
 }

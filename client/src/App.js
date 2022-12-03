@@ -11,6 +11,7 @@ import Template from './template/Template';
 import Portfolio from './page/portfolio/Portfolio';
 import Loading from './page/loading/Loading';
 import { useSelector } from 'react-redux';
+import UserBookingList from './page/user_booking_list/UserBookingList';
 
 function App() {
   const loading = useSelector(state => state.loadingReducer)
@@ -29,6 +30,7 @@ function App() {
           </Route>
           <Route path='shop' element={<Shopping></Shopping>}></Route>
           <Route path='portfolio' element={<Portfolio></Portfolio>}></Route>
+          <Route path='userbooking' element={<UserBookingList></UserBookingList>}></Route>
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
