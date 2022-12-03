@@ -32,15 +32,15 @@ export default function BookingConfirm(props) {
       bookingTime: bookingTime,
     });
   }, [props]);
-  const handleBooking = (dispatch) => {
+  const handleBooking = (dispatch, navigate) => {
     if (!checkToken()) {
       alert("please login to book ");
       return navigate("/login");
     }
-    if (!bookingDate && !bookingTime) {
+    if (!bookingDate || bookingTime === undefined) {
       return alert("please select date  and time ");
     }
-   return  handleBookingService(dispatch, booking);
+    return handleBookingService(dispatch, booking, navigate);
   };
   return (
     <div className="flex flex-col items-center mb-16">
@@ -75,7 +75,7 @@ export default function BookingConfirm(props) {
           <button
             className="inline-block w-full rounded-lg bg-blue-500 px-5 py-3 text-center text-sm font-semibold text-white sm:w-auto animate-bounce"
             onClick={() => {
-              handleBooking(dispatch);
+              handleBooking(dispatch, navigate);
             }}
           >
             Confirm

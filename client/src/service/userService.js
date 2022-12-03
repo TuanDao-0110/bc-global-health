@@ -67,7 +67,7 @@ export const handleGetUserProfile = async (dispatch) => {
     }
     closeLoadingService(dispatch)
 }
-export const handleBookingService = async (dispatch, bookingInfo) => {
+export const handleBookingService = async (dispatch, bookingInfo,navigate) => {
     openLoadingService(dispatch)
     try {
         const { data } = await axios({
@@ -89,5 +89,6 @@ export const handleBookingService = async (dispatch, bookingInfo) => {
 
     }
     closeLoadingService(dispatch)
-    window.location.reload()
+    navigate('/portfolio')
+    // window.location.reload()
 }
