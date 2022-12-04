@@ -119,13 +119,17 @@ export default function UserBookingList() {
     });
     return deleteInfor;
   };
-  return (
-    <>
-      <div className="flex flex-col w-4/5 mx-auto my-10 relative">
-        <h3 className="font-extrabold text-4xl text-green-800 text-center mb-10"> Your booking list</h3>
-        <EditNote setModal={setModal} modal={modal}></EditNote>
-        {renderUserConfirm(userProfile.bookingList)}
-      </div>
-    </>
-  );
+  if (checkToken()) {
+    return (
+      <>
+        <div className="flex flex-col w-4/5 mx-auto my-10 relative">
+          <h3 className="font-extrabold text-4xl text-green-800 text-center mb-10"> Your booking list</h3>
+          <EditNote setModal={setModal} modal={modal}></EditNote>
+          {renderUserConfirm(userProfile.bookingList)}
+        </div>
+      </>
+    );
+  } else {
+    navigate("/login");
+  }
 }

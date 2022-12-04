@@ -9,6 +9,7 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { checkToken } from "../../service/tokenService";
 import { useNavigate } from "react-router-dom";
+import { el } from "date-fns/locale";
 
 export default function Portfolio() {
   // navigate
@@ -105,5 +106,7 @@ export default function Portfolio() {
         </div>
       </div>
     );
+  } else {
+    navigate("/login");
   }
 }

@@ -9,7 +9,7 @@ import style from "./css/header.module.css";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { useNavigate, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import UserAvatar from "../component/avatar/UserAvatar";
 import BtnLogin from "../component/button/BtnLogin";
 import BtnRegister from "../component/button/BtnRegister";
@@ -23,7 +23,7 @@ export default function Header(props) {
     setValue(newValue);
   };
   const navigate = useNavigate();
- 
+
   return (
     <div className="flex flex-col w-full ">
       {/* header top  */}
@@ -55,23 +55,14 @@ export default function Header(props) {
         {/* logo rigth */}
         <div>LOGO</div>
         {/* left */}
-        <div className="text-red-400">
-          <Box sx={{ width: "100%", bgcolor: "", color: "Background" }}>
-            <Tabs value={value} onChange={handleChange} centered textColor="secondary" indicatorColor="secondary">
-              {navItems.map((item, index) => {
-                return (
-                  <Tab
-                    classes={"text-green-900"}
-                    key={index}
-                    label={`${item === "/" ? "intro" : item}`}
-                    onClick={() => {
-                      navigate(`${item}`);
-                    }}
-                  />
-                );
-              })}
-            </Tabs>
-          </Box>
+        <div className="flex gap-5">
+          {navItems.map((item, index) => {
+            return (
+              <NavLink key={index} to={`${item}`}>
+                <button className={style["nav"]}>{item === "/" ? "home" : item}</button>
+              </NavLink>
+            );
+          })}
         </div>
       </nav>
     </div>

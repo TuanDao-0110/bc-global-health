@@ -42,7 +42,7 @@ export const handleLogin = async (userInfo, dispatch, navigate) => {
         setUpToken(token)
         alert(msg)
         await handleGetUserProfile(dispatch)
-        navigate('/')
+        navigate('/hospital')
     } catch (error) {
         alert('login fail')
         console.log(error)
@@ -163,12 +163,10 @@ export const handleEditProfile = async (dispatch, userInfo) => {
 }
 
 export const handleLogOut = async (dispatch) => {
-    openLoadingService(dispatch)
-
     try {
+        await openLoadingService(dispatch)
         clearToken()
     } catch (error) {
-
     }
     closeLoadingService(dispatch)
 }
