@@ -6,8 +6,8 @@ export default function EditNote({ modal, setModal }) {
   const dispatch = useDispatch();
   const { display, editInfo } = modal;
   return display ? (
-    <div className="absolute h-screen w-full z-50 space-y-5 mt-5  ">
-      <div className="rounded-2xl border border-blue-100 bg-white p-8 shadow-lg " role="alert">
+    <div className="absolute   flex justify-center w-full z-50 space-y-5 mt-5  ">
+      <div className="rounded-2xl border w-3/4 border-blue-100 bg-white p-8 shadow-lg " role="alert">
         <div className="items-center sm:flex">
           <span className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-blue-400 text-white animate-ping">
             <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
