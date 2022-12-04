@@ -27,28 +27,8 @@ export default function Portfolio() {
   // set temp state for user profile
   const [mainUserProfile, setMainUserProfile] = useState();
   // allow edit
-  const [allowEdit, setAllowEdit] = useState(false);
-  const renderProfile = () => {
-    let render = [];
-    for (let i in mainUserProfile) {
-      if (i !== "bookingList" && i !== "__v") {
-        render.push(
-          <div key={i} className="flex gap-5 my-3 justify-around ">
-            <label htmlFor="" className="md:mt-0 text-gray-800 w-1/5 font-semibold text-xl mb-2 flex items-center">
-              {i}
-            </label>
-            <input
-              disabled={handleEdit(i, allowEdit)}
-              defaultValue={`${mainUserProfile[i]}`}
-              type={`${i === seePwd ? seePwd : ""}`}
-              className={`rounded-md text-xl text-gray-600 w-3/5 border-2 p-3  border-gray-400 ${handleEdit(i) ? "bg-gray-300" : "bg-gray-50"} `}
-            />
-          </div>
-        );
-      }
-    }
-    return render;
-  };
+  const [allowEdit, setAllowEdit] = useState(true);
+
   // handleEdit
   const handleEdit = (i, allowEdit) => {
     if (allowEdit) {
@@ -63,6 +43,34 @@ export default function Portfolio() {
     } else {
       return false;
     }
+  };
+  const renderProfile = () => {
+    let render = [];
+    for (let i in mainUserProfile) {
+      if (i !== "bookingList" && i !== "__v") {
+        render.push(
+          <div key={i} className="flex gap-5 my-3 justify-around ">
+            <label htmlFor="" className="md:mt-0 text-gray-800 w-1/5 font-semibold text-xl mb-2 flex items-center">
+              {i}
+            </label>
+            <input
+              onChange={(e) => {
+                let temp = { ...mainUserProfile };
+                temp[`${i}`] = e.target.value;
+                setMainUserProfile({ ...temp });
+              }}
+              disabled={handleEdit(i, allowEdit)}
+              defaultValue={`${mainUserProfile[i]}`}
+              type={`${i === seePwd ? seePwd : ""}`}
+              className={`rounded-md text-xl text-gray-600 w-3/5 border-2 p-3  border-gray-400 ${
+                handleEdit(i, allowEdit) ? "bg-gray-300" : "bg-gray-50"
+              } `}
+            />
+          </div>
+        );
+      }
+    }
+    return render;
   };
   // see pwd
   const [seePwd, setSeePwd] = useState("password");
@@ -79,7 +87,7 @@ export default function Portfolio() {
             {renderProfile()}
 
             <div className="flex gap-5 justify-center w-4/5 m-auto my-5">
-              <BtnSubmit message={"Save Changed"}></BtnSubmit>
+              <BtnSubmit message={"Save Changed"} mainUserProfile={mainUserProfile}></BtnSubmit>
               <BtnSuccess message={"Edit"} setAllowEdit={setAllowEdit} allowEdit={allowEdit}></BtnSuccess>
               <FormControlLabel
                 control={

@@ -96,7 +96,6 @@ export const handleBookingService = async (dispatch, bookingInfo, navigate) => {
 }
 export const handleEditBookingNote = async (dispatch, editInfo) => {
     const { date, hospitalName, time } = editInfo
-    console.log(editInfo)
     openLoadingService(dispatch)
     try {
         const { data } = await axios({
@@ -137,6 +136,29 @@ export const handleDeleteBooking = async (dispatch, deleteInfo) => {
         alert('fail')
         console.log(error)
     }
+    closeLoadingService(dispatch)
+}
+
+export const handleEditProfile = async (dispatch, userInfo) => {
+    openLoadingService(dispatch)
+
+    try {
+        const { data } = await axios({
+            url: `${BASE_URL}/user`,
+            method: 'patch',
+            data: userInfo,
+            headers: {
+                Authorization: setUpHeader()
+            },
+        })
+        if (data) {
+            alert('data edit success,please login again')
+            clearToken()
+        }
+    } catch (error) {
+
+    }
+
     closeLoadingService(dispatch)
 }
 
