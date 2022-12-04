@@ -168,6 +168,9 @@ const deleteBooking = asyncHandler(async (req, res, next) => {
             item.customerId = null
             item.userConfirm = false
             item.customerNote = ''
+            item.hospitalNote = ''
+            item.userVisitConfirm = false
+            item.hospitalConfirm = false
         }
     })
 

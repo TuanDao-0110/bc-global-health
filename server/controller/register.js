@@ -71,17 +71,18 @@ const register = asyncHandler(async (req, res, next) => {
         let booking_time = createListOfTime()
         newHospitalUser?.map(asyncHandler(async (item, index) => {
             // console.log(item.hospitalName)
-            const { _id: id, hospitalName } = item
+            const { _id: id, hospitalName, id: hospitalId } = item
             let bookingCreate = await booking.create({
-                "booking_hospital_id": id,
+                "booking_hospital_id": id, hospitalId,
                 hospitalName, booking_time
             })
 
         }))
-        return res.status(201).json({ msg: `hospital id: ${id} have created as hospital_user` })
+        if (newHospitalUser) return res.status(201).json({ msg: `hospital id: ${id} have created as hospital_user` })
+
     }
 
-    return res.status(201).json({ msg: 'success' })
+    return res.status(401).json({ msg: 'fail' })
 })
 
 

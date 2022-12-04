@@ -10,6 +10,10 @@ const hospital_booking_schema = new mongoose.Schema({
         type: String,
         require: true
     },
+    hospitalId: {
+        type: String,
+        require: true
+    },
     booking_time: {
         type: Object,
     }
