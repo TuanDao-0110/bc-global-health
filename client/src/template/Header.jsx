@@ -13,6 +13,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import UserAvatar from "../component/avatar/UserAvatar";
 import BtnLogin from "../component/button/BtnLogin";
 import BtnRegister from "../component/button/BtnRegister";
+import { checkToken } from "../service/tokenService";
 const navItems = ["/", "post", "hospital", "shop"];
 
 export default function Header(props) {
@@ -22,6 +23,7 @@ export default function Header(props) {
     setValue(newValue);
   };
   const navigate = useNavigate();
+ 
   return (
     <div className="flex flex-col w-full ">
       {/* header top  */}
@@ -43,9 +45,9 @@ export default function Header(props) {
           <YouTubeIcon fontSize="large"></YouTubeIcon>
           <GoogleIcon fontSize="large"></GoogleIcon>
           <LinkedInIcon fontSize="large"></LinkedInIcon>
-          <UserAvatar></UserAvatar>
-          <BtnLogin></BtnLogin>
-          <BtnRegister></BtnRegister>
+          {checkToken() ? <UserAvatar></UserAvatar> : ""}
+          {!checkToken() ? <BtnLogin></BtnLogin> : ""}
+          {!checkToken() ? <BtnRegister></BtnRegister> : ""}
         </div>
       </div>
       {/* header bottom */}

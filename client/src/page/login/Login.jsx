@@ -90,7 +90,7 @@ export default function Login() {
                     });
                   }}
                   className="pl-2 outline-none border-none"
-                  type="text"
+                  type="password"
                   name
                   id
                   placeholder="Password"
@@ -156,7 +156,7 @@ export default function Login() {
                     });
                   }}
                   className="pl-2 outline-none border-none"
-                  type="text"
+                  type="password"
                   name
                   id
                   placeholder="Password"
@@ -185,11 +185,14 @@ export default function Login() {
                 />
               </div>
             </div>
-            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer"
-            onClick={()=> { 
-              navigate('/register')
-            }}
-            >dont have account ?  ?</span>
+            <span
+              className="text-sm ml-2  hover:text-blue-500 cursor-pointer"
+              onClick={() => {
+                navigate("/register");
+              }}
+            >
+              dont have account ? ?
+            </span>
             <BtnBackMain></BtnBackMain>
           </div>
         </form>

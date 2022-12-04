@@ -2,7 +2,7 @@
 import { BASE_URL } from "../util/url.js";
 import axios from 'axios'
 import { setUserProfile } from "../redux/reducer/userReducer.jsx";
-import { setUpHeader, setUpToken } from "./tokenService.js";
+import { clearToken, setUpHeader, setUpToken } from "./tokenService.js";
 import { closeLoadingService, openLoadingService } from "./loadingService.js";
 import AlertSucces from "../component/alert/AlertSucces.jsx";
 import { da, ms } from "date-fns/locale";
@@ -42,6 +42,7 @@ export const handleLogin = async (userInfo, dispatch, navigate) => {
         setUpToken(token)
         alert(msg)
         await handleGetUserProfile(dispatch)
+        navigate('/')
     } catch (error) {
         alert('login fail')
         console.log(error)
@@ -135,6 +136,17 @@ export const handleDeleteBooking = async (dispatch, deleteInfo) => {
     } catch (error) {
         alert('fail')
         console.log(error)
+    }
+    closeLoadingService(dispatch)
+}
+
+export const handleLogOut = async (dispatch) => {
+    openLoadingService(dispatch)
+
+    try {
+        clearToken()
+    } catch (error) {
+
     }
     closeLoadingService(dispatch)
 }

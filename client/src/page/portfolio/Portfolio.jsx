@@ -5,8 +5,14 @@ import BtnSubmit from "../../component/button/BtnSubmit";
 import BtnSuccess from "../../component/button/BtnSuccess";
 import { closeLoadingService, openLoadingService } from "../../service/loadingService";
 import { handleGetUserProfile } from "../../service/userService";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import { checkToken } from "../../service/tokenService";
+import { useNavigate } from "react-router-dom";
 
 export default function Portfolio() {
+  // navigate
+  const navigate = useNavigate();
   // dispatch
   const dispatch = useDispatch();
   // get user profile
@@ -20,6 +26,8 @@ export default function Portfolio() {
   // get user profile
   // set temp state for user profile
   const [mainUserProfile, setMainUserProfile] = useState();
+  // allow edit
+  const [allowEdit, setAllowEdit] = useState(false);
   const renderProfile = () => {
     let render = [];
     for (let i in mainUserProfile) {
@@ -30,10 +38,10 @@ export default function Portfolio() {
               {i}
             </label>
             <input
-              disabled
+              disabled={handleEdit(i, allowEdit)}
               defaultValue={`${mainUserProfile[i]}`}
-              type={`${i}`}
-              className="rounded-md text-xl text-gray-600 w-3/5 border-2 p-3  border-gray-400 bg-gray-200"
+              type={`${i === seePwd ? seePwd : ""}`}
+              className={`rounded-md text-xl text-gray-600 w-3/5 border-2 p-3  border-gray-400 ${handleEdit(i) ? "bg-gray-300" : "bg-gray-50"} `}
             />
           </div>
         );
@@ -41,26 +49,53 @@ export default function Portfolio() {
     }
     return render;
   };
-  const handleEdit =()=> { 
-    
-  }
-  return (
-    <div className="w-4/5 mx-auto">
-      <div className="rounded-lg bg-gray-100  w-full flex justify-center items-center  md:flex-row my-10 p-5 shadow-2xl">
-        <form
-          className="rounded px-4 w-4/5"
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-        >
-          {renderProfile()}
+  // handleEdit
+  const handleEdit = (i, allowEdit) => {
+    if (allowEdit) {
+      switch (i) {
+        case "_id":
+          return true;
+        case "role":
+          return true;
+        default:
+          return false;
+      }
+    } else {
+      return false;
+    }
+  };
+  // see pwd
+  const [seePwd, setSeePwd] = useState("password");
+  if (checkToken()) {
+    return (
+      <div className="w-4/5 mx-auto">
+        <div className="rounded-lg bg-gray-100  w-full flex justify-center items-center  md:flex-row my-10 p-5 shadow-2xl">
+          <form
+            className="rounded px-4 w-4/5"
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
+            {renderProfile()}
 
-          <div className="flex gap-5 justify-center w-4/5 m-auto my-5">
-            <BtnSubmit message={"Save"}></BtnSubmit>
-            <BtnSuccess message={"Edit"}></BtnSuccess>
-          </div>
-        </form>
+            <div className="flex gap-5 justify-center w-4/5 m-auto my-5">
+              <BtnSubmit message={"Save Changed"}></BtnSubmit>
+              <BtnSuccess message={"Edit"} setAllowEdit={setAllowEdit} allowEdit={allowEdit}></BtnSuccess>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    onChange={(e) => {
+                      e.target.checked ? setSeePwd("text") : setSeePwd("password");
+                    }}
+                    name="jason"
+                  />
+                }
+                label="See Password"
+              />
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
