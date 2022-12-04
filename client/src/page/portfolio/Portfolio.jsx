@@ -27,7 +27,7 @@ export default function Portfolio() {
   // set temp state for user profile
   const [mainUserProfile, setMainUserProfile] = useState();
   // allow edit
-  const [allowEdit, setAllowEdit] = useState(true);
+  const [allowEdit, setAllowEdit] = useState(false);
 
   // handleEdit
   const handleEdit = (i, allowEdit) => {
@@ -41,7 +41,7 @@ export default function Portfolio() {
           return false;
       }
     } else {
-      return false;
+      return true;
     }
   };
   const renderProfile = () => {

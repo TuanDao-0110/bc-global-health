@@ -15,7 +15,7 @@ export default function Login() {
   const dispatch = useDispatch();
   // set up client/patient
   const [client, setClient] = useState({
-    fullname: "",
+    // fullname: "",
     nickname: "",
     role: "client",
     password: "",
@@ -99,24 +99,6 @@ export default function Login() {
             </>
           ) : (
             <>
-              <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                </svg>
-                <input
-                  onChange={(e) => {
-                    setClient({
-                      ...client,
-                      fullname: e.target.value,
-                    });
-                  }}
-                  className="pl-2 outline-none border-none"
-                  type="text"
-                  name
-                  id
-                  placeholder="Full name"
-                />
-              </div>
               <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path
