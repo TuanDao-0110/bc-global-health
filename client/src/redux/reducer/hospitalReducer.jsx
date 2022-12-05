@@ -87,7 +87,6 @@ const initalState = {
       ],
     },
   },
-  hospitalUser: {},
 };
 
 const hospitalReducer = createSlice({

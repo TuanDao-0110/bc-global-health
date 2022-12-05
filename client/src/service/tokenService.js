@@ -1,4 +1,5 @@
-export const setUpToken = (token) => {
+export const setUpToken = (token, role) => {
+    localStorage.setItem('role', JSON.stringify(role))
     return localStorage.setItem('token', JSON.stringify(token))
 }
 export const setUpHeader = () => {
@@ -11,4 +12,8 @@ export const checkToken = () => {
 
 export const clearToken = () => {
     return localStorage.clear()
+}
+
+export const checkRole = () => {
+    return JSON.parse(localStorage.getItem('role'))
 }

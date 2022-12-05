@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
@@ -6,24 +6,17 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import GoogleIcon from "@mui/icons-material/Google";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import style from "./css/header.module.css";
-import Box from "@mui/material/Box";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import UserAvatar from "../component/avatar/UserAvatar";
 import BtnLogin from "../component/button/BtnLogin";
 import BtnRegister from "../component/button/BtnRegister";
-import { checkToken } from "../service/tokenService";
-const navItems = ["/", "post", "hospital", "shop"];
+import { checkRole, checkToken } from "../service/tokenService";
+import { CLIENT, HOSPITAL } from "../util/role";
+import { el } from "date-fns/locale";
+import HospitalUserAvatar from "../component/avatar/HospitalUserAvatar";
+const navItems = ["/", "post", "hospital", "shop", "campus"];
 
 export default function Header(props) {
-  const [value, setValue] = useState(0);
-  //   return <h1 className={[style.header, style.danger].join(" ")}>header</h1>;
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-  const navigate = useNavigate();
-
   return (
     <div className="flex flex-col w-full ">
       {/* header top  */}
@@ -45,7 +38,8 @@ export default function Header(props) {
           <YouTubeIcon fontSize="large"></YouTubeIcon>
           <GoogleIcon fontSize="large"></GoogleIcon>
           <LinkedInIcon fontSize="large"></LinkedInIcon>
-          {checkToken() ? <UserAvatar></UserAvatar> : ""}
+          {checkRole() === CLIENT ? <UserAvatar /> : ""}
+          {checkRole() === HOSPITAL ? <HospitalUserAvatar /> : ""}
           {!checkToken() ? <BtnLogin></BtnLogin> : ""}
           {!checkToken() ? <BtnRegister></BtnRegister> : ""}
         </div>
@@ -57,11 +51,19 @@ export default function Header(props) {
         {/* left */}
         <div className="flex gap-5">
           {navItems.map((item, index) => {
-            return (
-              <NavLink key={index} to={`${item}`}>
-                <button className={style["nav"]}>{item === "/" ? "home" : item}</button>
-              </NavLink>
-            );
+            if (checkRole() !== HOSPITAL && item !== "campus") {
+              return (
+                <NavLink key={index} to={`${item}`}>
+                  <button className={style["nav"]}>{item === "/" ? "home" : item}</button>
+                </NavLink>
+              );
+            } else if (checkRole() === HOSPITAL && item !== "hospital") {
+              return (
+                <NavLink key={index} to={`${item}`}>
+                  <button className={style["nav"]}>{item === "/" ? "home" : item}</button>
+                </NavLink>
+              );
+            }
           })}
         </div>
       </nav>

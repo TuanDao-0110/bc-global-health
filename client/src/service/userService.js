@@ -4,8 +4,6 @@ import axios from 'axios'
 import { setUserProfile } from "../redux/reducer/userReducer.jsx";
 import { clearToken, setUpHeader, setUpToken } from "./tokenService.js";
 import { closeLoadingService, openLoadingService } from "./loadingService.js";
-import AlertSucces from "../component/alert/AlertSucces.jsx";
-import { da, ms } from "date-fns/locale";
 
 export const handleRegister = async (userInfo, dispatch, navigate) => {
     openLoadingService(dispatch)
@@ -38,11 +36,11 @@ export const handleLogin = async (userInfo, dispatch, navigate) => {
             url: `${BASE_URL}/login`,
             data: userInfo,
         })
-        const { token, msg } = data
-        setUpToken(token)
+        const { token, msg, role } = data
+        setUpToken(token, role)
         alert(msg)
         await handleGetUserProfile(dispatch)
-        navigate('/hospital')
+        navigate('/')
     } catch (error) {
         alert('login fail')
         console.log(error)
