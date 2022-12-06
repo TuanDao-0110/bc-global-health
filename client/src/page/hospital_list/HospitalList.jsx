@@ -7,7 +7,6 @@ import { open_modal } from "../../redux/reducer/modalReducer";
 import { getAllHospitalList } from "../../service/hospitalData.js";
 export default function HospitalList() {
   const hospitalList = useSelector((state) => state.hospitalReducer.hospitals);
-
   const [hospitals, setHospitalList] = useState(hospitalList);
   const [load, setLoad] = useState(2);
   const dispatch = useDispatch();
