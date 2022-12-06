@@ -7,7 +7,7 @@ const ButtonIcon = (props) => {
     type='submit'
     onClick={props.onClick}
     >
-     <span className='btnIcon'><i className={props.icon} />
+     <span className='btnIcon'><i className={props.icon} style={{fontSize:'50px'}}/>
     </span>
     <span className='btnText'>{props.children}</span>
    

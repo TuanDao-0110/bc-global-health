@@ -13,6 +13,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import UserAvatar from "../component/avatar/UserAvatar";
 import BtnLogin from "../component/button/BtnLogin";
 import BtnRegister from "../component/button/BtnRegister";
+import logo from "../Logo/logo.png"
 const navItems = ["/", "post", "hospital", "shop"];
 
 export default function Header(props) {
@@ -51,7 +52,7 @@ export default function Header(props) {
       {/* header bottom */}
       <nav className={[style.header_bottom].join(" ")}>
         {/* logo rigth */}
-        <div>LOGO</div>
+        <div><img src={logo} alt="logo" style={{width:'100px', height:'100px'}} /></div>
         {/* left */}
         <div className="text-red-400">
           <Box sx={{ width: "100%", bgcolor: "", color: "Background" }}>
