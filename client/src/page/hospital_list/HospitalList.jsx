@@ -35,7 +35,7 @@ export default function HospitalList() {
     }
   };
   return (
-    <div className="bg-slate-200 h-screen">
+    <div className="bg-slate-200 h-full w-full">
       {/* modal/popup */}
       <ModalHospitalInfor></ModalHospitalInfor>
       {/* searching fn */}
@@ -61,7 +61,7 @@ export default function HospitalList() {
         </div>
       </div>
       {/* hospital list */}
-      <div className="space-y-4 pt-5">
+      <div className="space-y-4 pt-5 ">
         {hospitals?.slice(0, load).map((item, index) => {
           return (
             <div key={index}>

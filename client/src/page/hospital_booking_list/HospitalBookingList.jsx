@@ -6,7 +6,10 @@ import { getHospitalBookingInfoService } from "../../service/hospitalUserService
 import style from "./hospital_booking_list.module.css";
 import EditIcon from "@mui/icons-material/Edit";
 import EditHopitalBooking from "../../component/modal/EditHopitalBooking";
+import { checkToken } from "../../service/tokenService";
+import { useNavigate } from "react-router-dom";
 export default function HospitalBookingList() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { hospitalBookingList } = useSelector((state) => state.hospitalUserReducer);
   useEffect(() => {
@@ -86,12 +89,14 @@ export default function HospitalBookingList() {
       );
     });
   };
-  return (
+  return checkToken() ? (
     <div className="flex flex-col w-4/5 mx-auto my-10 relative">
       <EditHopitalBooking modal={modal} setModal={setModal}></EditHopitalBooking>
       <h3 className="font-extrabold text-4xl text-green-800 text-center mb-10"> Hospital booking list</h3>
 
       {renderBookingNeedConfirm()}
     </div>
+  ) : (
+    navigate("/")
   );
 }
