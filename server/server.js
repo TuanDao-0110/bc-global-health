@@ -24,7 +24,7 @@ app.use('/login', require("./routes/login"))
 app.use('/register', require("./routes/register"))
 // user router
 app.use('/user',require('./routes/user'))
-
+app.use('/hospital_user',require("./routes/hospital"))
 app.all('*', (req, res) => {
   res.status(404).send('not found')
 })

@@ -2,13 +2,12 @@
 import { BASE_URL } from "../util/url.js";
 import axios from 'axios'
 import { getHospital, getHospitalById } from '../redux/reducer/hospitalReducer'
-import { data } from "autoprefixer";
+import { closeLoadingService, openLoadingService } from "./loadingService.js";
 
 
 
 export const getAllHospitalList = async (dispatch) => {
-
-
+    openLoadingService(dispatch)
     try {
         const { data } = await axios({
             url: `${BASE_URL}/hospital_data/hospital_list`,
@@ -18,18 +17,23 @@ export const getAllHospitalList = async (dispatch) => {
     } catch (error) {
         console.log(error)
     }
+    closeLoadingService(dispatch)
+
 }
 
 export const getHospitaBookingListById = async (dispatch, id) => {
+    openLoadingService(dispatch)
     try {
         const { data } = await axios({
             url: `${BASE_URL}/hospital_data/hospital_booking?id=${id}`
         })
-        console.log(data)
-        dispatch(getHospitaBookingListById(data))
-    } catch (error) {
 
+        dispatch(getHospitalById(data))
+    } catch (error) {
+        console.log(error)
     }
+    closeLoadingService(dispatch)
+
 }
 
 

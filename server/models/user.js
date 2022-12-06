@@ -31,7 +31,8 @@ const userSchema = new mongoose.Schema({
                 hospitalConfirm: false,
                 userVisitConfirm: false,
                 customerNote: '',
-                hospitalNote: ''
+                hospitalNote: '',
+                hospitalName: ''
             }]
         }
     }

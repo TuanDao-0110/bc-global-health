@@ -74,13 +74,13 @@ const setBooking = asyncHandler(async (req, res, next) => {
                     let temp = { ...list }
                     temp.hospitalId = booking_hospital_id
                     temp.customerNote = customerNote
+                    temp.hospitalName = data.hospitalName
                     if (Object.keys(bookingList).includes(bookingDate)) {
                         bookingList[bookingDate].push(temp)
-                        
+
                     } else {
                         bookingList[bookingDate] = []
                         bookingList[bookingDate].push(temp)
-                        console.log(bookingList)
                     }
 
                 }
@@ -90,7 +90,7 @@ const setBooking = asyncHandler(async (req, res, next) => {
 
     // set update data to hospital booking 
     await data.updateOne({ booking_time })
-    await foundUser.updateOne({bookingList})
+    await foundUser.updateOne({ bookingList })
     return res.status(200).json({ msg: 'Booking added', bookingList })
 })
 
@@ -107,7 +107,7 @@ const editBooking = asyncHandler(async (req, res, next) => {
     if (!Object.keys(foundUser.bookingList).includes(date) || foundUser.bookingList[`${date}`]?.length === 0) {
         return res.status(401).json({ msg: 'if user want to change new date please delete our appointment and booking new ' })
     }
-    if (foundUser.bookingList[`${date}`].findIndex(booking => booking.time === time) ===-1) {
+    if (foundUser.bookingList[`${date}`].findIndex(booking => booking.time === time) === -1) {
         return res.status(401).json({ msg: 'if user want to change new date/time please delete our appointment and booking new ' })
 
     }
@@ -146,33 +146,42 @@ const editBooking = asyncHandler(async (req, res, next) => {
 })
 
 const deleteBooking = asyncHandler(async (req, res, next) => {
-    const { id: _id, hospitalId: booking_hospital_id, time, customerNote, date } = req.body
+    const { id: _id, hospitalId: booking_hospital_id, time, date } = req.body
     // find user vs find hostpital
     let findUser = await user.findOne({ _id }).exec()
     // check that user have correct date vs time on that booking list 
     if (!findUser.bookingList[`${date}`].find(booking => booking.time === time) || !Object.keys(findUser.bookingList).includes(date)) {
         return res.status(401).json({ msg: `you dont have any booking on ${date} at ${time} ` })
     }
+
     // find hospital
-    let findHospital = await booking_hospital.findOne({ booking_hospital_id }).exec()
+    let findHospital = await booking_hospital.findOne({ booking_hospital_id })
     //  find user's booking time by date/time/booking_hospital_id
-    if (!Object.keys(findHospital.booking_time).includes(date)) return res.status(401).json({ msg: 'booking time can not find ' })
+    if (!Object.keys(findHospital.booking_time).includes(date)) {
+        return res.status(401).json({ msg: 'booking time can not find ' })
+    }
+    let checkTime = time
     // set up hospital booking
     findHospital.booking_time[`${date}`]?.map(item => {
-        let { time, customerId, userConfirm, customerNote, } = item
-        if (time === time && customerId === _id) {
+        let { time, customerId, } = item
+        if (time === checkTime && customerId === _id) {
             item.customerId = null
             item.userConfirm = false
             item.customerNote = ''
+            item.hospitalNote = ''
+            item.userVisitConfirm = false
+            item.hospitalConfirm = false
         }
-
     })
+
+
     let newBooking_time = findHospital.booking_time
     let index = findUser.bookingList[`${date}`]?.findIndex(booking => booking.hospitalId === booking_hospital_id && booking.time === time)
     // ?.filter(booking => booking.time !== time)
     findUser.bookingList[`${date}`].splice(index, 1)
     let newBookingList = findUser.bookingList[`${date}`]
     findUser.bookingList[`${date}`] = newBookingList
+
     const updateBookingHospital = await findHospital.updateOne({ booking_time: newBooking_time })
     const updateBookingUser = await findUser.updateOne(findUser)
     if (!updateBookingHospital || !updateBookingUser) {

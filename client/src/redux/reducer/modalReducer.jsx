@@ -1,4 +1,4 @@
-const {  createSlice } = require("@reduxjs/toolkit");
+import { createSlice } from "@reduxjs/toolkit";
 const initalState = {
   modal: false,
   infor: null,
@@ -12,7 +12,6 @@ const modalReducer = createSlice({
       return { ...state, modal: false, infor: null };
     },
     open_modal: (state, action) => {
-      console.log(action);
       const { infor } = action.payload;
       return { ...state, modal: true, infor: infor };
     },

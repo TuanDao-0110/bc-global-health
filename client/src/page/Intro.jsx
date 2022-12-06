@@ -7,6 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 export default function Intro() {
   return (
+<<<<<<< HEAD
     <div className={classes.intro}>
     <header>
     <h2>Find Health Facilities and Professionals in Finland</h2>
@@ -71,3 +72,9 @@ export default function Intro() {
     </div>
   )
 }
+=======
+   <>
+   </>
+  );
+}
+>>>>>>> 6f83b3ee4e75426739a245930717fc1f33866c0f

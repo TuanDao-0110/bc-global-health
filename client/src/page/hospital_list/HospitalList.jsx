@@ -15,7 +15,6 @@ export default function HospitalList() {
     getAllHospitalList(dispatch);
   }, [dispatch]);
   useEffect(() => {
-    console.log(hospitalList);
     setHospitalList(() => {
       return hospitalList;
     });
@@ -37,7 +36,7 @@ export default function HospitalList() {
     }
   };
   return (
-    <div className="bg-slate-500 h-full">
+    <div className="bg-slate-200 h-screen">
       {/* modal/popup */}
       <ModalHospitalInfor></ModalHospitalInfor>
       {/* searching fn */}
@@ -88,15 +87,7 @@ export default function HospitalList() {
                           <span className="text-gray-500 font-normal">(76 reviews)</span>
                         </p>
                       </div>
-                      <div className>
-                        {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-pink-500" viewBox="0 0 20 20" fill="currentColor">
-                  <path
-                    fillRule="evenodd"
-                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                    clipRule="evenodd"
-                  />
-                </svg> */}
-                      </div>
+
                       <div className="bg-gray-200 p-2 flex flex-col rounded-full justify-center   text-xs font-medium text-gray-800  md:block">
                         {item.location}
                       </div>

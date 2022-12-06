@@ -69,14 +69,20 @@ const register = asyncHandler(async (req, res, next) => {
         let newHospitalUser = await hospital_user.create(data)
         // set up booking object for each hospital --> list booking is now create for 7day from the first day register
         let booking_time = createListOfTime()
-        newHospitalUser.map(asyncHandler(async (item, index) => {
-            const { _id: id } = item
-            let bookingCreate = await booking.create({ "booking_hospital_id": id, booking_time })
+        newHospitalUser?.map(asyncHandler(async (item, index) => {
+            // console.log(item.hospitalName)
+            const { _id: id, hospitalName, id: hospitalId } = item
+            let bookingCreate = await booking.create({
+                "booking_hospital_id": id, hospitalId,
+                hospitalName, booking_time
+            })
+
         }))
-        return res.status(201).json({ msg: `hospital id: ${id} have created as hospital_user` })
+        if (newHospitalUser) return res.status(201).json({ msg: `hospital id: ${id} have created as hospital_user` })
+
     }
 
-    return res.status(201).json({ msg: 'success' })
+    return res.status(401).json({ msg: 'fail' })
 })
 
 
