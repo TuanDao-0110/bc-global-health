@@ -28,6 +28,8 @@ export const getHospitaBookingListById = async (dispatch, id) => {
             url: `${BASE_URL}/hospital_data/hospital_booking?id=${id}`
         })
 
+
+
         dispatch(getHospitalById(data))
     } catch (error) {
         console.log(error)
