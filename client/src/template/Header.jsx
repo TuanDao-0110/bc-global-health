@@ -12,7 +12,6 @@ import BtnLogin from "../component/button/BtnLogin";
 import BtnRegister from "../component/button/BtnRegister";
 import { checkRole, checkToken } from "../service/tokenService";
 import { CLIENT, HOSPITAL } from "../util/role";
-import { el } from "date-fns/locale";
 import HospitalUserAvatar from "../component/avatar/HospitalUserAvatar";
 const navItems = ["/", "post", "hospital", "shop", "campus"];
 
