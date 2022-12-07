@@ -35,7 +35,7 @@ export default function HospitalList() {
     }
   };
   return (
-    <div className="bg-slate-200 h-screen">
+    <div className="bg-slate-200 h-full">
       {/* modal/popup */}
       <ModalHospitalInfor></ModalHospitalInfor>
       {/* searching fn */}
