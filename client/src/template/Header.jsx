@@ -6,20 +6,16 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import GoogleIcon from "@mui/icons-material/Google";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import style from "./css/header.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import UserAvatar from "../component/avatar/UserAvatar";
 import BtnLogin from "../component/button/BtnLogin";
 import BtnRegister from "../component/button/BtnRegister";
-<<<<<<< HEAD
 import logo from "../Logo/logo.png"
-const navItems = ["/", "post", "hospital", "shop"];
-=======
 import { checkRole, checkToken } from "../service/tokenService";
 import { CLIENT, HOSPITAL } from "../util/role";
 import { el } from "date-fns/locale";
 import HospitalUserAvatar from "../component/avatar/HospitalUserAvatar";
 const navItems = ["/", "post", "hospital", "shop", "campus"];
->>>>>>> 6f83b3ee4e75426739a245930717fc1f33866c0f
 
 export default function Header(props) {
   return (
@@ -52,7 +48,7 @@ export default function Header(props) {
       {/* header bottom */}
       <nav className={[style.header_bottom].join(" ")}>
         {/* logo rigth */}
-        <div><img src={logo} alt="logo" style={{width:'100px', height:'100px'}} /></div>
+        <div><Link to="/"><img src={logo} alt="logo" style={{width:'100px', height:'100px'}} /></Link></div>
         {/* left */}
         <div className="flex gap-5">
           {navItems.map((item, index) => {

@@ -1,56 +1,66 @@
-import React from 'react'
+import React, {useState} from 'react'
 import ButtonIcon from '../component/button/ButtonIcon'
 import Input from '../component/form_Input/Input'
 import classes from './Intro.module.css'
 import SearchIcon from '@mui/icons-material/Search';
+import {Link} from 'react-router-dom'
 
 
 export default function Intro() {
+
+  const [search, setSearch] = useState('')
+  const [location, setLocation] = useState('')
   return (
-<<<<<<< HEAD
     <div className={classes.intro}>
     <header>
     <h2>Find Health Facilities and Professionals in Finland</h2>
-    <form className='searchBar'>
+    <form className='searchBar' action='/hospital' method='get' target='/hospital'>
     
     <Input
-     type='text'
-     placeholder='Search Health Facilities, Services, Professionals etc. '/>
+     type='search'
+     placeholder='Name of Health Facility/Service/Professional... '
+    onChange={(e)=>setSearch(e.target.value)}
+     />
   <Input
-     type='text'
-     placeholder='Location' 
+     type='search'
+     placeholder='Location'
+     onChange={(e) => setLocation(e.target.value)} 
     />
-    <button><SearchIcon fontSize='large'/>Search</button>
+    <button type='submit'><SearchIcon fontSize='large'/>Search</button>
 
     </form>
     </header>
 
     <main>
     <section className="searchBtns">
+    <Link to="/hospital">
     <ButtonIcon 
       children='Health Facilities +'
       icon='fa-solid fa-hospital'
 
-    />
+    /></Link>
 
+<Link to="/hospital">
 <ButtonIcon 
       children='Health Services +'
       icon='fa-solid fa-kit-medical'
 
-    />
+    /></Link>
 
-    <ButtonIcon 
+<Link to="/hospital">
+<ButtonIcon 
       children='Doctors +'
       icon='fa-solid fa-user-doctor'
 
-    />
+    /></Link>
   
     
-    <ButtonIcon 
+  <Link to="/post">
+  <ButtonIcon 
       children='Read More +'
       icon='fa-solid fa-info'
 
-    />
+    /></Link>
     
     </section>
     <article className='regisStats'>
@@ -72,9 +82,3 @@ export default function Intro() {
     </div>
   )
 }
-=======
-   <>
-   </>
-  );
-}
->>>>>>> 6f83b3ee4e75426739a245930717fc1f33866c0f
