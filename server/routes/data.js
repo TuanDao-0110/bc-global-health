@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const alldata = require('../controller/publicdata')
-const booking_list = require('../controller/hospital_user')
+const {booking_list} = require('../controller/hospital_user')
 // send all public data
 
 router.route('/hospital_list').get(alldata)

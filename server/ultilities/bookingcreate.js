@@ -16,7 +16,7 @@ const createListOfTime = () => {
         userVisitConfirm: false,
         customerId: null
     }
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 30; i++) {
         list[`${setUpdate(i)}`] = []
         let time = 700
         for (let j = 0; j <= 21; j++) {

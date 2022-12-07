@@ -44,7 +44,7 @@ const login = asyncHandler(async (req, res, next) => {
         }
         let { _id: id } = foundUser
         let token = generateToken(id, password, role)
-        return res.status(200).json({ msg: 'login success', token })
+        return res.status(200).json({ msg: 'login success', token,role })
     }
     // as admin
     if (role === admin) {
@@ -60,7 +60,7 @@ const login = asyncHandler(async (req, res, next) => {
         }
         let { _id: id } = foundUser
         let token = generateToken(id, password, role)
-        return res.status(200).json({ msg: 'login success', token })
+        return res.status(200).json({ msg: 'login success', token,role })
     }
     // as hospital_user
     if (role === hospital) {
@@ -77,7 +77,7 @@ const login = asyncHandler(async (req, res, next) => {
         if (foundUser) {
             let { _id: id } = foundUser
             let token = generateToken(id, password, role)
-            return res.status(200).json({ msg: 'login success', token })
+            return res.status(200).json({ msg: 'login success', token,role })
         }
     }
     return res.status(404).json({ msg: 'data not found' })

@@ -13,14 +13,14 @@ const createListOfTime = () => {
     let list = {
 
     }
-    let time = format(new Date(), 'ddMMyyyy')
-    let item = {
-        time: 730,
-        userConfirm: false,
-        hospitalConfirm: false,
-        userVisitConfirm: false,
-        customerId: null
-    }
+    // let time = format(new Date(), 'ddMMyyyy')
+    // let item = {
+    //     time: 730,
+    //     userConfirm: false,
+    //     hospitalConfirm: false,
+    //     userVisitConfirm: false,
+    //     customerId: null
+    // }
     for (let i = 0; i < 7; i++) {
         list[`${setUpdate(i)}`] = []
         let time = 700

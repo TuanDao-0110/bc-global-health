@@ -1,4 +1,4 @@
-const { createSlice } = require("@reduxjs/toolkit");
+import { createSlice } from "@reduxjs/toolkit";
 
 const initalState = {
   hospitals: [
@@ -60,28 +60,7 @@ const initalState = {
       __v: 0,
     },
   ],
-  hospitalById: {
-    "27/11/2022": [
-      {
-        customerId: null,
-        customerNote: "",
-        hospitalConfirm: false,
-        hospitalNote: "",
-        time: 730,
-        userConfirm: false,
-        userVisitConfirm: false,
-      },
-      {
-        customerId: null,
-        customerNote: "",
-        hospitalConfirm: false,
-        hospitalNote: "",
-        time: 730,
-        userConfirm: false,
-        userVisitConfirm: false,
-      },
-    ],
-  },
+  hospitalById: {},
 };
 
 const hospitalReducer = createSlice({
@@ -99,6 +78,6 @@ const hospitalReducer = createSlice({
   },
 });
 
-export const { getHospital, getHospitalById } = hospitalReducer.actions;
+export const { getHospital ,getHospitalById} = hospitalReducer.actions;
 
 export default hospitalReducer.reducer;

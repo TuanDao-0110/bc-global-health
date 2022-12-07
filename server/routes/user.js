@@ -12,8 +12,6 @@ router.route('/')
     .patch(editProfile)
 
 router.route('/booking')
-    // get booking
-    // .get()
     // create booking 
     .post(setBooking)
     // edit booking
