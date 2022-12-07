@@ -7,6 +7,7 @@ import { open_modal } from "../../redux/reducer/modalReducer";
 import { getAllHospitalList } from "../../service/hospitalData.js";
 export default function HospitalList() {
   const hospitalList = useSelector((state) => state.hospitalReducer.hospitals);
+
   const [hospitals, setHospitalList] = useState(hospitalList);
   const [load, setLoad] = useState(2);
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ export default function HospitalList() {
     }
   };
   return (
-    <div className="bg-slate-200 h-full w-full">
+    <div className="bg-slate-200 h-screen">
       {/* modal/popup */}
       <ModalHospitalInfor></ModalHospitalInfor>
       {/* searching fn */}
@@ -61,7 +62,7 @@ export default function HospitalList() {
         </div>
       </div>
       {/* hospital list */}
-      <div className="space-y-4 pt-5 ">
+      <div className="space-y-4 pt-5">
         {hospitals?.slice(0, load).map((item, index) => {
           return (
             <div key={index}>

@@ -150,7 +150,7 @@ export default function Login() {
           <BtnSubmit message={"Submit"} type="submit"></BtnSubmit>
           <div className="flex mt-5 justify-around w-full items-center flex-wrap ">
             <div className="flex items-center w-full justify-around flex-wrap ">
-              <p className="">Login as {check ? HOSPITAL : "Patient"}</p>
+              <p className="">Resister as {check ? HOSPITAL : "Patient"}</p>
               <div className="">
                 <Switch
                   onChange={(e) => {

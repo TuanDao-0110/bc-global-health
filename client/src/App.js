@@ -13,7 +13,6 @@ import Loading from './page/loading/Loading';
 import { useSelector } from 'react-redux';
 import UserBookingList from './page/user_booking_list/UserBookingList';
 import HospitalCampus from './page/campus/HospitalCampus';
-import HospitalBookingList from './page/hospital_booking_list/HospitalBookingList';
 
 function App() {
   const loading = useSelector(state => state.loadingReducer)
@@ -35,9 +34,8 @@ function App() {
             <Route path='portfolio' element={<Portfolio />}></Route>
             <Route path='userbooking' element={<UserBookingList />}></Route>
           </Route>
-          <Route path='campus' >
-            <Route index element={<HospitalCampus />}></Route>
-            <Route path='booking_list' element={<HospitalBookingList />}></Route>
+          <Route path='/campus' element={<HospitalCampus />}>
+
           </Route>
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />

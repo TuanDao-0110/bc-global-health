@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initalState = {
   hospitalUserInfor: [],
-  hospitalBookingList: [],
 };
 
 const hospitalUserReducer = createSlice({
@@ -13,12 +12,8 @@ const hospitalUserReducer = createSlice({
       const { hospitalUserInfor } = action.payload;
       return { ...state, hospitalUserInfor: hospitalUserInfor };
     },
-    getHospitalBooking: (state, action) => {
-      const { hospitalBookingList } = action.payload;
-      return { ...state, hospitalBookingList: hospitalBookingList };
-    },
   },
 });
 
-export const { getHospitalUserInfor, getHospitalBooking } = hospitalUserReducer.actions;
+export const { getHospitalUserInfor } = hospitalUserReducer.actions;
 export default hospitalUserReducer.reducer;

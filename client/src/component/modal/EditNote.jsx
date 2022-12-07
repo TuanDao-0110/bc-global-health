@@ -6,7 +6,7 @@ export default function EditNote({ modal, setModal }) {
   const dispatch = useDispatch();
   const { display, editInfo } = modal;
   return display ? (
-    <div className="absolute h-screen flex items-center backdrop-blur-md   justify-center w-full z-50 space-y-5 mt-5  ">
+    <div className="absolute   flex justify-center w-full z-50 space-y-5 mt-5  ">
       <div className="rounded-2xl border w-3/4 border-blue-100 bg-white p-8 shadow-lg " role="alert">
         <div className="items-center sm:flex">
           <span className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-blue-400 text-white animate-ping">
@@ -65,4 +65,11 @@ export default function EditNote({ modal, setModal }) {
     <></>
   );
 }
-
+<button
+  className="mt-3 inline-block w-full rounded-lg bg-gray-50 px-5 py-3 text-center text-sm font-semibold text-gray-500 sm:mt-0 sm:ml-3 sm:w-auto"
+  onClick={() => {
+    // setModal(false);
+  }}
+>
+  close
+</button>;
