@@ -10,12 +10,11 @@ import { NavLink } from "react-router-dom";
 import UserAvatar from "../component/avatar/UserAvatar";
 import BtnLogin from "../component/button/BtnLogin";
 import BtnRegister from "../component/button/BtnRegister";
-
-import logo from "../Logo/logo.png"
 import { checkRole, checkToken } from "../service/tokenService";
 import { CLIENT, HOSPITAL } from "../util/role";
-const navItems = ["/", "post", "hospital", "shop"];
-
+import { el } from "date-fns/locale";
+import HospitalUserAvatar from "../component/avatar/HospitalUserAvatar";
+const navItems = ["/", "post", "hospital", "shop", "campus"];
 
 export default function Header(props) {
   return (
@@ -40,7 +39,7 @@ export default function Header(props) {
           <GoogleIcon fontSize="large"></GoogleIcon>
           <LinkedInIcon fontSize="large"></LinkedInIcon>
           {checkRole() === CLIENT ? <UserAvatar /> : ""}
-          {/* {checkRole() === HOSPITAL ? <HospitalUserAvatar /> : ""} */}
+          {checkRole() === HOSPITAL ? <HospitalUserAvatar /> : ""}
           {!checkToken() ? <BtnLogin></BtnLogin> : ""}
           {!checkToken() ? <BtnRegister></BtnRegister> : ""}
         </div>
@@ -48,7 +47,7 @@ export default function Header(props) {
       {/* header bottom */}
       <nav className={[style.header_bottom].join(" ")}>
         {/* logo rigth */}
-        <div><img src={logo} alt="logo" style={{width:'100px', height:'100px'}} /></div>
+        <div>LOGO</div>
         {/* left */}
         <div className="flex gap-5">
           {navItems.map((item, index) => {
