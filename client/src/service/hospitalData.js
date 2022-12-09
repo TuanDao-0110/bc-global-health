@@ -12,7 +12,6 @@ export const getAllHospitalList = async (dispatch) => {
         const { data } = await axios({
             url: `${BASE_URL}/hospital_data/hospital_list`,
         });
-
         dispatch(getHospital(data))
     } catch (error) {
         console.log(error)
