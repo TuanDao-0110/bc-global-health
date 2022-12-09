@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import HospitalDetail from "../../component/modal/HospitalDetail";
 import { getHospitalUserInfoService } from "../../service/hospitalUserService";
 import style from "./hospitalCampus.module.css";
 
@@ -9,7 +10,8 @@ export default function HospitalCampus() {
   useEffect(() => {
     getHospitalUserInfoService(dispatch);
   }, []);
-
+  const [modal, setModal] = useState(false);
+  const [detail, setDetail] = useState();
   const renderHospitalList = () => {
     return hospitalUserInfor?.map((item, index) => {
       return (
@@ -47,10 +49,11 @@ export default function HospitalCampus() {
               <button
                 className="bg-gray-200 px-3 py-1 w-fit capitalize rounded-full text-xs font-medium text-gray-800 hidden md:block hover:shadow-lg delay-75 duration-150"
                 onClick={() => {
-                  // dispatch(open_modal({ infor: list }));
+                  setModal(true);
+                  setDetail(item);
                 }}
               >
-                check booking details{" "}
+                check hospital details
               </button>
             </div>
           </div>
@@ -58,5 +61,11 @@ export default function HospitalCampus() {
       );
     });
   };
-  return <div className="flex flex-col justify-center py-5 gap-5 bg-gray-100">{renderHospitalList()}</div>;
+  return (
+    <div className="flex flex-col justify-center py-5 gap-5 bg-gray-100">
+      <HospitalDetail modal={modal} setModal={setModal} detail={detail}></HospitalDetail>
+
+      {renderHospitalList()}
+    </div>
+  );
 }
