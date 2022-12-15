@@ -38,10 +38,20 @@
     3. create/update/delete new user.
     4. create/update/delete purchasing's actions.
 ---
+# Running project on terminal
 
-# Hospital_project
+1. back end:
+``` 
+cd server 
+node server.js
 
-[] .....
+```
 
+2. front end:
 
-# run  node index.js ==> to start server 
+``` 
+cd client 
+npm start 
+```
+remember to keep both terminal running separately.
+
