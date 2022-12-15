@@ -1,4 +1,4 @@
-Back-end
+# Back-end
 
 1. Register.
     1. Admin (must be created by other Admin)
@@ -23,7 +23,7 @@ Back-end
     2. Delete user/hospital 
 
 
-FRONT -END 
+# FRONT -END 
 
 1. Main page: 
     1. Introduction
