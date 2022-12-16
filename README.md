@@ -1,5 +1,5 @@
 # Project information
-1. create hospital booking channel that can connect hospital's booking available time and client/patient who want to find free booking time
+1. create hospital search channel that with booking features for client/patient who want to find free booking time
 2. offer a channel for medical news 
 3. offer a selling store for medical tools. 
 ---
