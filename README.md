@@ -13,11 +13,12 @@
 1. Front end: REACT 
 2. Back end: Nodejs _ ExpressJs
 3. DataBase: MongoBD
+4. UI: CSS, Tailwind css, Css module, front awesome. 
 ---
 # Project function: 
 1. user register/login
-2. user can create/edit/delete/update booking/feedback/purchasing
-3. chating channel between users
+2. user can create/edit/delete/update booking/feedback/purchasing 
+3. chatting channel between users
 
 ### User Functions
 1. Hospital. 
