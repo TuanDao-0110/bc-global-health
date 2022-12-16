@@ -16,9 +16,9 @@
 4. UI: CSS, Tailwind css, Css module, front awesome. 
 ---
 # Project function: 
-1. user register/login
-2. user can create/edit/delete/update booking/feedback/purchasing 
-3. chatting channel between users
+1. user register/login (done)
+2. user can create/edit/delete/update booking/feedback/purchasing  (booking's CRUD 80%)
+3. chatting channel between users ()
 
 ### User Functions
 1. Hospital. 
